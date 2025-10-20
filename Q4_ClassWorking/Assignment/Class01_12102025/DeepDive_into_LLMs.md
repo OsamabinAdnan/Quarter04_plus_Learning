@@ -95,7 +95,7 @@ Example: ~5000 text characters
     - Neural Network Architecture Reasearch is a subject to design effective mathematical expression having convenient characteristics.
     - [Neural Network 3d Visualization](https://bbycroft.net/llm)
 
-
+https://youtu.be/7xTGNNLPyMI?t=1560
 
 1.4. The Result: An "Internet Document Simulator"
 
