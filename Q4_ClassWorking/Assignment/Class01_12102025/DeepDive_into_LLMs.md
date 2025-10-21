@@ -12,7 +12,7 @@ This article will demystify that magic. We will embark on a journey through the 
 --------------------------------------------------------------------------------
 
 
-### **1. Stage 1: The Foundation — Pre-training a "Base Model"**
+### **1. Stage 1: The Foundation — `Pre-training` a "Base Model"**
 
 The first stage is like building a vast library and having an AI read every single book. This is the Exposition phase of our textbook analogy, where the model builds its core knowledge by absorbing the patterns, facts, and nuances of human language on a global scale. It is a massive, computationally expensive process that forms the foundation for everything to come.
 
@@ -95,35 +95,223 @@ Example: ~5000 text characters
     - Neural Network Architecture Reasearch is a subject to design effective mathematical expression having convenient characteristics.
     - [Neural Network 3d Visualization](https://bbycroft.net/llm)
 
-https://youtu.be/7xTGNNLPyMI?t=1560
+#### **1.4. Inference**
 
-1.4. The Result: An "Internet Document Simulator"
+Inference is the process where an LLM generates text by predicting one token at a time, using what it learned during training. Inference is like generating new data from the model, we want to basically see what kinds of patterns it has initialized in the parameters of its network. 
 
-After months of training and millions of dollars in computational cost, the result is a base model. This is not yet a helpful assistant. It is an "internet document simulator" or a "glorified autocomplete." It holds an immense amount of knowledge compressed into its parameters—like a "lossy zip file of the internet"—but it doesn't understand instructions. It can complete text, but it doesn't know how to answer questions.
+- Inference is the stage where the trained model is used to generate or predict new text.
+- It’s what happens after the model has already been trained.
 
-This knowledgeable but unhelpful base model is the raw material for the next stage, where it will learn how to be a useful assistant by studying worked examples.
+**Think of it like this:**
+
+- `Training =` teaching the model by showing it tons of examples and adjusting its internal settings (“weights”).
+- `Inference =` asking the trained model to use what it learned to predict the next word (token).
+
+##### **🔄 How it works (step-by-step, based on your image):**
+
+1) **You give the model some starting text (context)**
+
+    Example:
+    > “The weather today is”
+
+2) **Model converts that text into tokens**
+    (numbers like 91, 860, 287, etc.)
+
+3) **Neural network predicts the next token**
+    It calculates the probability for every possible next token — e.g.:
+
+    * “sunny” → 40%
+    * “rainy” → 20%
+    * “cold” → 10%
+    The token with the highest probability (or sampled randomly) is chosen.
+
+4) **That new token is added to the input, and the process repeats**
+Now the model predicts the next one again, using the updated sequence.
+
+5) **Repeat this loop until it completes a full sentence, paragraph, or response.**
+
+![Inference](assets/step04_inference.png)
+
+- Now that the model is trained, it enters the inference phase — the stage where it actually generates text.
+Here’s where one key idea matters: **LLMs are stochastic systems** — meaning their behavior involves randomness.
+- That means their predictions involve controlled randomness — similar to flipping a weighted coin.
+- At each step, the model doesn’t always pick the single most likely next token. Instead, it samples from a probability distribution of possible tokens, allowing for natural variation and creativity.
+
+    * **Randomness with structure:** Because of this probabilistic sampling, the model can generate slightly different outputs each time, even from the same prompt.
+    * **Reusing learned fragments:** Sometimes, you’ll see small snippets or phrases that resemble parts of the training data. This happens because the model has statistically learned those patterns very well.
+    * **Generating new combinations:** More often, though, the model produces sequences that were never seen **verbatim** (in exactly the same words as were used originally) in its training set. It’s not copying—it’s **remixing** ideas, forming new combinations that *feel* familiar because they share the same statistical structure as the data it learned from.
+    * **Divergent token streams:** Since each token influences the next, small random differences compound over time. Within just a few steps, you can end up with a completely new sequence—a **unique stream of tokens inspired by training data, not identical to it.**
+
+- So, inference is where the model takes what it learned, applies a touch of randomness, and begins creating text that’s statistically grounded yet never fully predictable.
+
+##### **GPT(Generative Pre-trained Transformer)-2 training and inference**
+---
+![GPT-2](assets/gpt-2.png)
+
+---
+- Processing 1 million token per update
+- Each update taking 7 seconds roughly
+- Taking 32000 steps of optimizations
+- 32000 steps with 1 million tokens each is about 33 billion tokens that are going to process
+- 420/32000 showing 420 steps are done out of 32000
+- Every 20 steps, he has configured this optimization to do inference.
+- This is `Gold Rush`. Gold Rush is getting GPUs and getting enough them, so they can all collabrate to perform this optimization to predict next token on a dataset (like the fine web dataset in this case).
+- This is the computation workflow that is extremely expensive, the more GPUs you have, the more tokens you can try to predict and improve on. You can process this dataset faster, you can iterate faster to get a bigger network and train it.
+
+##### **Base Model**
+
+Once the model has been trained (and inference is working), what we get is called a **Base Model** — sometimes also referred to as a pretrained model or foundation model.
+
+###### **🔹 What is the Base Model?**
+
+- The Base Model is the raw neural network right after its pretraining phase — the phase where it learned to predict the next token from massive amounts of internet text.
+- Base Model is an `internal text token simulator`
+
+- At this point, the model has:
+
+    * Learned grammar, facts, concepts, and styles of human language.
+    * Developed a strong sense of statistical relationships between words and ideas.
+    * Acquired general language understanding and generation ability.
+
+But…
+
+- Even though it can generate text, the base model is not aligned with human expectations or task goals.
+It hasn’t been taught how to respond helpfully, safely, or coherently in conversations.
+
+- The base model knows a lot, it doesn’t know what you want from it. It’s like a brilliant but untrained intern — full of raw knowledge, but no understanding of how to communicate or behave appropriately.
+
+###### **LLAMA 3.1 Base Model Inference**
+
+![Base Model and LLAMA 3](assets/base%20model%20and%20LLAMA%203.png)
+
+- Check `LLAMA-3.1-405B-Base` model on hyperbolic website (link mentioned at the end of this docs)
+- LLAMA-3.1-405B-Base means its the base model not assistant trained on 405 billion parameters.
+- LLAMA-3.1-405B-Base is just token autocomplete (from the internet) and stochastic system
+- It is still very useful b/c in the task of predicting the next token in the sequences the model has learned lot about the world and store all that knownledge in its parameters of the network.
+- BaseModel regurgitate, `Regurgitation` refers to when a language model reproduces text from its training data verbatim — that is, it spits back exact or near-exact passages it has seen before, instead of generating new, original combinations. In simple terms:
+
+    > In Regurgitation, the model `memorizes` parts of the data rather than `learning` general patterns — and later repeats that text word-for-word during generation.
+
+    * **🔹 Why Regurgitation Happens (especially in Base Models)**
+    Regurgitation is most noticeable in Base Models (the raw pretrained models) because:
+
+    1) **Their training objective is purely next-token prediction.:** They’re rewarded for guessing the next token correctly — not for being original or avoiding repetition.
+
+    2) **They train on massive text datasets:** When some text snippets or code appear many times online, the model can memorize them instead of learning generalizable patterns.
+
+    3) **No alignment or filtering yet:** Base Models haven’t gone through alignment stages like supervised fine-tuning (SFT) or RLHF, which encourage human-like, useful, and non-repetitive responses. So they can easily output copied segments from the web.
+
+- If a Base Model’s knowledge cutoff is in 2023 and you ask it about an event from 2024, it will likely **hallucinate** — meaning it will generate a plausible-sounding but potentially incorrect answer.
+- This happens because the model doesn’t actually *know* about events beyond its training data; instead, it relies on **probabilistic token prediction** to guess what might come next, since its primary objective is simply to generate the next most likely token.
+
+**We have done in Stage 01: Pre-training**
+* In this stage, the model is trained on vast amounts of text from the internet.
+    > The data is first broken down into tokens — small chunks of text — and the model learns to **predict the next token** in a sequence using a neural network.
+
+* After months of computation and millions of dollars in training, the result is a **Base Model** — essentially an *internet text simulator or a glorified autocomplete system.*
+
+* It has absorbed an enormous amount of knowledge, compressed within its parameters — like a **“lossy zip file of the internet.”**
+
+However, this model is **not yet a helpful assistant**. It can mimic how people write and continue text, but it doesn’t truly understand instructions or intent.
+This raw, knowledge-rich model becomes the foundation for the next stage, where it will learn how to respond usefully by studying human-guided examples.
 
 
 --------------------------------------------------------------------------------
 
+### **2. Stage 2: Post Training Stage - Supervised Fine-Tuning (SFT)**
 
-2. Stage 2: Creating a Conversationalist — Supervised Fine-Tuning (SFT)
+The **Supervised Fine-Tuning (SFT)** stage transforms the raw `Base Model` into an AI system that can follow instructions and hold natural, human-like conversations.
+This stage can be thought of as the `“Worked Examples”` section of the model’s textbook — *where it learns how to act like an expert assistant* by studying examples written by humans.
 
-This stage transforms the raw base model into an AI that can follow instructions and hold a conversation. This is the Worked Examples section of our textbook. Here, the model learns to imitate an expert. This process is computationally much cheaper and faster, often taking hours or days instead of months.
+SFT is **much faster and cheaper** than pre-training, often taking hours or days instead of months, yet it plays a `critical role` in shaping the model’s behavior.
 
-2.1. The Goal: A New Dataset for a New Skill
+#### **2.1 Programming by Example**
 
-To teach the model how to act like an assistant, we swap the massive internet dataset for a new, much smaller, and highly curated dataset composed entirely of high-quality conversations.
+In this phase, the massive internet text dataset used during pre-training is **replaced** with a smaller, **highly curated dataset** composed entirely of `multi-turn conversations` between humans and assistants.
 
-This is a critical point: the training algorithm is the exact same (predicting the next token), but changing the data fundamentally changes the model's behavior. Instead of learning to complete internet pages, it now learns to complete conversations in the style of a helpful assistant.
+Each data point looks like a chat dialogue:
 
-2.2. Who Writes the "Ideal" Responses?
+```sql
+User: How can I learn Python?
+Assistant: You can start with online tutorials, interactive courses, and small projects.
 
-This conversational dataset is created by human labelers. These aren't just random people; they are often skilled experts in their domain (e.g., programmers for coding tasks, writers for creative tasks). They are given specific instructions—for example, to write responses that are "helpful, truthful, and harmless"—and are tasked with writing ideal assistant responses to a wide variety of prompts.
+```
 
-When you interact with a model like ChatGPT, you are, in a sense, interacting with a statistical simulation of these people.
+This dataset is created by **human labelers** — skilled annotators or domain experts (e.g., programmers, writers, educators).
+They follow detailed **guidelines** instructing them to produce responses that are *helpful, truthful, and harmless.*
 
-"it's almost as if you're asking a human labeler and imagine that the answer that is given to you is some kind of a simulation of a human labeler."
+When you interact with a model like ChatGPT, you’re essentially engaging with a **statistical simulation of these human experts**.
+
+#### **2.2. Conversations**
+
+- The Base Model, originally trained on general internet text, is now **retrained** on this new **dataset of conversations.**
+
+- Although the **training algorithm remains the same** (next-token prediction), the **data type changes** — from web documents to structured dialogues.
+
+- This single change fundamentally alters the model’s behavior:
+
+    * Instead of completing web pages, the model now learns to complete **conversations** in the style of a **helpful assistant.**
+
+- Modern SFT pipelines also include **synthetic data** — AI-generated conversations created by other powerful models, which are then reviewed and edited by humans to ensure quality and safety.
+
+##### **Tokenization of Conversations**
+
+- During Supervised Fine-Tuning (SFT), the goal is to teach the Base Model how to behave like a helpful assistant by showing it examples of human-style conversations — prompts and ideal responses.
+
+- Before these conversations can be used for training, they must be tokenized — that is, converted into numerical form so the model can process them.
+
+    1) **Structuring Conversational Data:** Supervised Fine-Tuning (SFT) datasets are usually organized into structured conversation formats such as:
+        * Each dialogue is represented as a sequence of `messages` with clear roles:
+            - system → sets behavior or context
+            - user → provides input or question
+            - assistant → provides the ideal, human-written response
+        * This structure ensures the model learns when and how to respond appropriately.
+
+    2) **Tokenization Rules:** Once the conversation structure is defined, it’s `encoded into tokens` — small numerical units representing words, punctuation, and formatting.
+        * The model learns the relationships between these token sequences:
+            - How `user tokens` lead to `assistant tokens`
+            - How to maintain context across turns
+            - When to stop or switch roles
+        * Special tokens such as `<|im_start|>`, `user`, and `assistant` are used to delineate conversation boundaries, marking who is speaking at each point.
+
+        ```bash
+        <|im_start|>user
+        Hello!
+        <|im_start|>assistant
+        Hi there! How can I help you today?
+        ```
+        * During training, the model learns:
+            - How user tokens lead to assistant tokens
+            - How to predict the next response token-by-token
+            - When to end or transition between conversation turns
+        * These tokens are later `decoded` back into human-readable text during inference.
+
+    3) **Why This Matters in SFT:**
+        * This tokenization and structuring step ensures:
+            - The model understands `conversation flow` (who’s speaking, when to reply).
+            - The model learns `instruction-following behavior` rather than just text prediction.
+            - Training remains `consistent`, because all conversation data follows the same encoding format.
+
+- **The Magic of talking to AI:**
+
+* When you chat with ChatGPT, the responses you get aren’t coming from a magical or conscious intelligence.
+Instead, they’re generated based on **patterns learned from human-written examples** in its training data.
+
+* These examples were created by human labelers who followed detailed **instruction guidelines** provided by the company.
+So, in a way, when you talk to ChatGPT, you’re really interacting with a **statistical imitation of those human labelers.**
+
+* The model has learned to predict *what a well-trained human labeler would say* in a similar situation —
+so each reply you get is like a **simulation of how an expert human would respond**, not the thoughts of an actual AI mind.
+
+* Pretrained Knowledge + Postering Dataset = Result
+
+![Conversation](assets/Step02-Conversations.png)
+
+
+https://youtu.be/7xTGNNLPyMI?t=4832
+
+
+
 
 Now that the model can imitate a helpful human, the next stage teaches it how to discover solutions and "think" for itself by solving practice problems.
 
@@ -216,3 +404,5 @@ These models are not magical beings. They are complex systems whose knowledge, p
 * [LM Arena for model rankings](https://lmarena.ai/)
 * [AI News Newsletter](https://buttondown.com/ainews)
 * [LMStudio for local inference](https://lmstudio.ai/)
+* [The visualization UI I was using in the video](https://excalidraw.com/)
+* [The specific file of Excalidraw we built up](https://drive.google.com/file/d/1EZh5hNDzxMMy05uLhVryk061QYQGTxiN/view)
