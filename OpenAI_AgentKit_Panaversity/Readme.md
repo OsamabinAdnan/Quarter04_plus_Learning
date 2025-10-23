@@ -150,3 +150,77 @@ So, how does AI help to create an agentic organization? The `McKinsey article` s
 - This course aims to make you:
     1) No code Agent developer
     2) Business solution provider
+
+## **Session 03: Build your First Agent (22/10/2025)**
+
+- At the start we discussed on [Agentic Organization: Future of Work and Business](https://www.youtube.com/watch?v=Dq2u0_jI4qk)
+
+### **Agentic Mesh**
+
+In the context of an “agentic organisation” (that is, an organisation built to leverage many autonomous AI agents working collaboratively) a **Agentic Mesh** is a key architectural paradigm.
+
+- An Agentic Mesh is the infrastructure layer that connects and manages multiple AI agents across an organization.
+- At a high level, an Agentic Mesh is a **governed, interoperable fabric** or infrastructure layer in which many specialised AI agents can register, coordinate, share context, act, and scale across an enterprise. For example:
+    * It connects agents (that may use different models, tools, or data sources) into a unified system rather than silos.
+    * It embeds governance, observability, and policy controls so that the agents operate in a safe, auditable, compliant way.
+    * It supports vendor neutrality and composability: agents and tools can be swapped/added without rebuilding the entire system.
+    * It enables multi-agent workflows, where discrete agents can take on subtasks, hand off to other agents, share memory/context, coordinate reasoning and actions.
+- The **Agentic Mesh** is the **“nervous system”** of an agentic enterprise: the agents are the neurons, the mesh is the connective tissue, routing layer and governance scaffold.
+
+#### **Why it matters for an agentic organisation**
+
+In an organisation that embraces agentic AI (many autonomous agents collaborating, scaling across functions), you face several challenges. The Agentic Mesh model helps address them:
+
+* **Scaling vs. silos:** Many companies deploy individual AI agents (chatbots, copilots) but they are disconnected. The mesh enables reuse, sharing, and avoids duplication of effort. 
+* **Governance and risk:** With many agents acting autonomously, you need policies, audit-logs, observability, access controls. The mesh embeds this.
+* **Vendor lock-in and future proofing:** A mesh architecture supports plugging in new models, tools or workflows without rebuilding the stack.
+* **Complex workflows:** Business processes are rarely single-step. The mesh allows orchestration of agents across tasks.
+* **Democratization of AI & data:** In an agentic organisation, non-technical business users may invoke or compose agents. The mesh helps enable that safely.
+
+#### **Key design principles**
+
+According to sources like McKinsey & Company, some of the key design principles for an Agentic Mesh include:
+
+* **Composability:** Agents, tools, models can be plugged in/removed.
+* **Distributed intelligence:** Intelligence isn’t centralised; many agents operate and collaborate.
+* **Layered decoupling:** Functions like memory, reasoning, interface, orchestration are separated.
+* **Vendor neutrality:** Avoid lock-in; support multiple models/tools.
+* **Governed autonomy:** Agents have autonomy but within guardrails, policies, observability.
+
+#### **How it fits into an Agentic Organisation**
+Within an agentic organisation (sometimes called the “agentic operating model”), the mesh enables the architecture and operating environment for agents. For instance:
+
+* The organisation’s systems, data, workflows are connected via the mesh, so agents can access enterprise data/functionality in a unified way.
+* The mesh allows teams to build and deploy agents more rapidly, reuse existing agents, move from pilot to scale.
+* It supports a shift from centralised IT-monoliths to distributed “agentic” components closer to business units, enabling business‐users to leverage AI agents with appropriate guardrails.
+
+> **The Agentic Mesh is the backbone that lets many AI agents work together, governed, and at scale within an organization, like 10K peoples of an organization can talk to each other because of system which is Agentic Mesh.**
+
+### **[Navigating the Crossroads of AI and Human Readiness in IT](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/02_ai_and_human_readiness#navigating-the-crossroads-of-ai-and-human-readiness-in-it)**
+---
+**Industries that’ll likely be Replaced by AI First**
+![Industries](assets/industries.jpg)
+
+---
+**Positioning System**
+![Positioning System](assets/you-are-here-gartner-positioning-system.png)
+
+---
+### **Pre-Setup Guide**
+[Pre-Setup Guide: Getting Ready for Week 2 Session 1](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/blob/main/04_no_code_agents/pre-setup.md)
+
+### **What Is an Agent (No Code)?**
+
+[04_no_code_agents](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/04_no_code_agents)
+
+#### **[Part 1: Understanding Agents (10 minutes)](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/04_no_code_agents#part-1-understanding-agents-10-minutes)**
+
+[Agents VS Chatbots - Student's Guide](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/blob/main/04_no_code_agents/what_is_an_agent.md)
+
+#### **[Part 2: The AgentKit Stack (15 minutes)](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/04_no_code_agents#part-2-the-agentkit-stack-15-minutes)**
+
+![Agent Core Component](assets/agentkit-core-components.png)
+
+
+
+
