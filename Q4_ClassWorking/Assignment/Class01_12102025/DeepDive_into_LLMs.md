@@ -26,8 +26,10 @@ The journey begins by gathering an immense amount of text from publicly availabl
 
 This raw data is heavily processed to extract just the main text (removing ads and navigation bars), filter by language, and remove personally identifiable information (PII).
 
+---
 ![Fineweb Recipe](assets/fineweb-recipe.png)
 
+---
 #### **1.2. Step 2: From Text to "Tokens"**
 
 An AI doesn't see words or characters the way we do. Instead, it breaks text into small, manageable chunks called `tokens`. You can think of tokens as  **atoms of text.** This process of converting text into a sequence of token IDs is called **`tokenization`**.
@@ -43,9 +45,10 @@ Example: ~5000 text characters
 * ~= 40,000 bits (with vocabulary size of 2 tokens: bits 0/1)
 * ~= 5000 bytes (with vocabulary size of 256 tokens: bytes)
 * ~= 1300 GPT-4 tokens (vocabulary size 100,277)
-
+---
 ![App to count Token](assets/tokenization.png)
 
+---
 #### **1.3. Step 3: The Training Game — Predicting the Next Token (Neural Network Training)**
 
 > In this step, we want to model the statistical relationships of how these tokens follow each other in the sequence, we take windows of token from data fairly randomly, window length can range anywhere between 0 to some maximum size of our chosen, for e.g., token window of 8000 tokens.
@@ -53,9 +56,10 @@ Example: ~5000 text characters
 - Processing of long window sequences would be very computationally expenses.
 - We pick small set of token, as you see in below picture, these four `tokens are context and they feed into neural network as input`.
 
-
+---
 ![Next Token Prediction](assets/next%20token%20prediction.png)
 
+---
 - With a massive dataset of token sequences, the training can begin. The fundamental task during pre-training is incredibly simple:` predicting the next token in a sequence`.
 
     * **Input of Neural Network:** Sequences of tokens of variable length anywhere between 0 to maximum size (like 8000 tokens)
@@ -130,8 +134,10 @@ Now the model predicts the next one again, using the updated sequence.
 
 5) **Repeat this loop until it completes a full sentence, paragraph, or response.**
 
+---
 ![Inference](assets/step04_inference.png)
 
+---
 - Now that the model is trained, it enters the inference phase — the stage where it actually generates text.
 Here’s where one key idea matters: **LLMs are stochastic systems** — meaning their behavior involves randomness.
 - That means their predictions involve controlled randomness — similar to flipping a weighted coin.
@@ -181,9 +187,10 @@ It hasn’t been taught how to respond helpfully, safely, or coherently in conve
 - The base model knows a lot, it doesn’t know what you want from it. It’s like a brilliant but untrained intern — full of raw knowledge, but no understanding of how to communicate or behave appropriately.
 
 ###### **LLAMA 3.1 Base Model Inference**
-
+---
 ![Base Model and LLAMA 3](assets/base%20model%20and%20LLAMA%203.png)
 
+---
 - Check `LLAMA-3.1-405B-Base` model on hyperbolic website (link mentioned at the end of this docs)
 - LLAMA-3.1-405B-Base means its the base model not assistant trained on 405 billion parameters.
 - LLAMA-3.1-405B-Base is just token autocomplete (from the internet) and stochastic system
@@ -304,11 +311,129 @@ So, in a way, when you talk to ChatGPT, you’re really interacting with a **sta
 so each reply you get is like a **simulation of how an expert human would respond**, not the thoughts of an actual AI mind.
 
 * Pretrained Knowledge + Postering Dataset = Result
-
+---
 ![Conversation](assets/Step02-Conversations.png)
 
+---
 
-https://youtu.be/7xTGNNLPyMI?t=4832
+##### **Hallucinations, tool use, knowledge/working memory**
+
+These are the Emergent cognitive effects of the training pipeline that we have for models
+
+* Hallucination refers to when LLMs generate outputs that are factually incorrect, misleading, or entirely fabricated despite appearing coherent and plausible.
+* These outputs seem confident and trustworthy but have no real grounding in the training data or reality.
+* Causes include limitations or errors in training data, overfitting, vague or ambiguous inputs, and the lack of real-world understanding or fact-verification ability.
+* It is like "seeing" or creating something imaginary, similar to how humans sometimes see patterns that do not exist.
+* Hallucinations can take forms such as contradicting the input, contradicting themselves, or contradicting known facts.
+* This problem undermines user trust and the reliability of LLMs, sometimes leading to significant consequences.
+* This phenomenon is a metaphorical use of the term "hallucination" to describe AI generating nonsensical or inaccurate responses that don't match training or facts.​
+
+---
+![Hallucinations](assets/Hallucination_1.png)
+
+---
+
+**Mitigation # 01**
+* Use model interrogation to discover model's knowledge, and programmatically augment its training dataset with knowledge-based refusals in cases where the model doesn't know, for example:
+---
+![Mitigation # 01](assets/Hallucination_2.png)
+
+---
+**Mitigation # 02**
+
+* The model is equipped with the ability to **initiate web searches** when it lacks sufficient knowledge to answer a question confidently.
+* This is achieved by defining **special control tokens** — `<SEARCH_START>` and `<SEARCH_END>` — which act as a protocol indicating when the model wants to perform a search.
+* When the model determines that it doesn’t know an answer, it can emit:
+    - `<SEARCH_START>` followed by a query, e.g., *“Who is Orson Kovacs?”*, and then
+    - `<SEARCH_END>` to signal the end of the query.
+* During inference, when the system detects <SEARCH_END>, it **pauses token generation** and executes an external search (e.g., via Bing or Google) using the emitted query.
+* The retrieved text from the search results is then inserted back into the model’s context, represented by placeholder tokens such as `[...]`.
+* This inserted text becomes part of the **context window**, which functions as the model’s **working memory** — data here is directly accessible to the neural network for reasoning.
+* When token generation resumes, the model can **reference and incorporate** this newly retrieved information in its response.
+* Because the base (pretrained) model already possesses an inherent understanding of how search queries work, it can naturally generate effective and contextually relevant search prompts.
+
+---
+![Mitigation # 02](assets/Hallucination_3.png)
+
+---
+
+**Vague Collection VS Working Memory**
+
+* **Knowledge in the parameters == Vague recollection (e.g. of something you read 1 month ago)**
+    - The information stored in the *model’s parameters* (i.e., weights) represents what the model **learned during pretraining.**
+    - This knowledge is **implicit, fuzzy, and generalized** — similar to how a human might vaguely remember something they read a long time ago.
+    - Because it’s encoded statistically across billions of parameters, it cannot recall exact details or sources, which often leads to **hallucinations** when the model “fills in the gaps.”
+    - Example: The model might recall that “Orson Kovacs is a scientist,” but not accurately remember which field he belongs to or the exact facts.
+* **Knowledge in the tokens of the context window == Working memory**
+    - The *context window* (the tokens currently being processed in a conversation or prompt) acts as the model’s **short-term or working memory**.
+    - Information here is **explicit, precise, and immediately accessible** — the model can directly refer back to it while generating new tokens.
+    - It’s similar to how a human keeps information temporarily in mind while reasoning or speaking.
+    - Example: If the retrieved search text includes “Orson Kovacs is an astrophysicist from MIT,” the model can now use that exact phrase reliably in its next response.
+
+* `Parameters` = **Long-term, fuzzy recollection** (broad understanding, not detail-accurate)
+* `Context tokens` = **Short-term, precise working memory** (temporary but exact information)
+
+##### **Knowledge of Self**
+
+* The LLM has no knowledge of self "out of the box"
+* If you do nothing, it will probably think it is ChatGPT, developed by OpenAI.
+* You can program a "sense of self" in ~2 ways:
+    - Hardcoded conversations around these topics in the Conversations data (see below picture)
+    - "System message" that reminds the model at the beginning of every conversation about its identity.
+
+---
+![Hardcoded Conversations](assets/know%20yourself%20hardcoded.png "Hardcoded Conversations")
+
+---
+
+##### **Model Need Tokens to `Think`**
+* Suppose we are building out conversation to enter into our training set of conversation, so we are training model on below problem
+
+---
+![Model Need Tokens to Think](assets/model%20need%20tokens%20to%20think.png, "Model Need Tokens to Think")
+
+---
+**Prompt Construction Matters:**
+* When creating training examples, how an answer is structured significantly affects model performance.
+* Even if two answers are correct, one may train the model better if it reflects *step-by-step reasoning* rather than giving the answer immediately.
+
+**Finite Computation per Token:**
+* Each token generation involves a **fixed, limited amount of computation** (due to a finite number of transformer layers).
+* Therefore, a model cannot perform complex reasoning or multi-step calculations in a *single token*.
+
+**Distributed Reasoning:**
+* Good training data should encourage models to **spread reasoning across tokens**.
+* Example:
+    - Bad answer → instantly outputs “The answer is $3.”
+    - Good answer → reasons step by step (“Oranges cost $4 → total $13 – $4 = $9 → each apple costs $3”).
+* This teaches the model to reason incrementally and use prior context (“working memory”) effectively.
+
+**Demonstration:**
+* When forced to output an answer in a *single token*, the model can solve only very simple problems.
+* As numbers or complexity increase, it fails — showing it can’t perform all computation in one forward pass.
+
+**Practical Solution — Tool Use:**
+* Instead of relying on “mental arithmetic” (internal computation), let the model **use external tools**, e.g., a **code interpreter (Python)**.
+* Using tools allows verification of intermediate steps and produces more reliable results.
+* Example: the model can write and run Python code to compute results instead of reasoning internally.
+
+**Counting Example:**
+* Models struggle with counting (e.g., number of dots) because it requires too much computation per token.
+* By delegating the task to a code tool (`.count()` function in Python), results become accurate — showing that **offloading structured tasks to tools** is better.
+* So, the python interpreter is doing the counting, it's not the mental arithmetic doing it.
+
+**Core Insight:**
+* **Models need tokens to think** — distribute reasoning over multiple tokens.
+* **Prefer tool use** for precise or computation-heavy tasks (math, counting, logic).
+* **Avoid forcing models to “think” too much in one token**, as that exceeds their per-token computational capacity.
+
+---
+![Model Need Token to Think](assets/model%20need%20tokens%20to%20think2.png, "Model Need Tokens to Think")
+
+---
+
+https://www.youtube.com/watch?v=7xTGNNLPyMI&t=7271s
+
 
 
 
