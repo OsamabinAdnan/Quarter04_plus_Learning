@@ -251,6 +251,14 @@ Within an agentic organisation (sometimes called the â€œagentic operating modelâ
         5) **Plan the Workflow Logic**
         6) **Define the Agent (v0) and Prompt Engineering**
         7) **Decompose into Multiple Agents (The "Agentic" Approach)**
-        
 
+* We are making grading agent
+* Sir added `teacher guidelines` from this links and added in start block of agent as a `state variable.`
+    - [Teacher Guidelines](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/assignments/teacher_guidelines)
+
+---
+
+![Assignments Grading and Feedback Agentic System](assets/Sess04_2.png "Assignments Grading and Feedback Agentic System")
+
+---
 
