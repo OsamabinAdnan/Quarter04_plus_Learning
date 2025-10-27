@@ -4,7 +4,7 @@
 
 ---
 
-## **Session 01 (15/10/2025)**
+## **✅ Session 01 (15/10/2025)**
 
 ### **Introduction**
 
@@ -32,7 +32,7 @@ All detail related to this course:
 
 ---
 
-## **Session 02: Agentic Organization (16/10/2025)**
+## **✅ Session 02: Agentic Organization (16/10/2025)**
 
 Discussing Quiz from Repo **[Quiz.md](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/blob/main/00_agentic_web/quiz.md)**
 
@@ -151,7 +151,7 @@ So, how does AI help to create an agentic organization? The `McKinsey article` s
     1) No code Agent developer
     2) Business solution provider
 
-## **Session 03: Build your First Agent (22/10/2025)**
+## **✅ Session 03: Build your First Agent (22/10/2025)**
 
 - At the start we discussed on [Agentic Organization: Future of Work and Business](https://www.youtube.com/watch?v=Dq2u0_jI4qk)
 
@@ -221,6 +221,36 @@ Within an agentic organisation (sometimes called the “agentic operating model�
 
 ![Agent Core Component](assets/agentkit-core-components.png)
 
+## **✅ Session 04: Build your First Agent (Cont.) (23/10/2025)**
 
+### **What Is an Agent (No Code)? (Cont.)**
+
+[04_no_code_agents](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/04_no_code_agents)
+
+#### **[Part 3: Building Blocks (Nodes) (15 minutes)](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/04_no_code_agents#part-3-building-blocks-nodes-15-minutes)**
+* Click on link to check content of this page
+
+#### **[Part 4: Hands On Agent Builder - Key Concepts](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/04_no_code_agents#part-4-hands-on-agent-builder---key-concepts)**
+
+* Start working and understand `AgentKit`.
+---
+![Hands on Agent Builder](assets/Sess04_1.png)
+
+---
+
+#### **[Part 5: Lab Project: Automated Grading and Feedback Agent](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/04_no_code_agents#part-5-lab-project-automated-grading-and-feedback-agent)**
+
+[View the Class Hands-on Project Details](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/blob/main/04_no_code_agents/class_handson_project.md)
+
+* **Live Project: Assignments Grading and Feedback Agentic System**
+    - **Step-by-step plan we will follow in Agent Builder.**
+        1) **Domain Knowledge: Decompose the Steps of How Assignment Grading & Feedback Works**
+        2) **Define What Success Looks Like**
+        3) **How to Build It in Agent Builder: A Workflow Plan**
+        4) **Create the Start Node and State Variables**
+        5) **Plan the Workflow Logic**
+        6) **Define the Agent (v0) and Prompt Engineering**
+        7) **Decompose into Multiple Agents (The "Agentic" Approach)**
+        
 
 
