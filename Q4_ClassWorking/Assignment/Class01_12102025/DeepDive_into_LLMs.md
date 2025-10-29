@@ -428,42 +428,169 @@ These are the Emergent cognitive effects of the training pipeline that we have f
 * **Avoid forcing models to “think” too much in one token**, as that exceeds their per-token computational capacity.
 
 ---
-![Model Need Token to Think](assets/model%20need%20tokens%20to%20think2.png, "Model Need Tokens to Think")
+![Model Need Token to Think](assets/model%20need%20tokens%20to%20think2.png "Model Need Tokens to Think")
 
 ---
 
-https://www.youtube.com/watch?v=7xTGNNLPyMI&t=7271s
+##### **Tokenization revisited: Models struggle with spelling**
+* **LLMs are not very good with spelling-related tasks.**
+* The reason ties back to **tokenization** — models process tokens, not characters.
+* Tokens are small chunks of text (not necessarily single letters).
+* Because of this, LLMs don’t “see” words as a sequence of letters like humans do.
 
+* **Example: Character Indexing Task**
+- Example task: Print every third character of the string “ubiquitous,” starting from the first.
+- Expected output (human logic): `uqs`
+- Model output: **Incorrect** — because it doesn’t truly process at the character level.
+- “ubiquitous” = 3 tokens for the model, not individual letters.
+- Humans can easily visualize and index letters; models cannot.
 
+* **Why Tokens Exist**
+- Tokens are used for **efficiency** — fewer elements for models to handle.
+- However, this causes **limitations in spelling and fine-grained text manipulation.**
+- Some researchers want character-level or byte-level models,
+    * But these would create very long sequences,
+    * And current architectures don’t handle those efficiently yet.
 
+* **Using Tools to Compensate**
+- Since spelling is not a strong suit, we can tell the model to **use external tools** like code interpreters.
+- Example: “Use code” with Python to manipulate strings correctly.
+- When run in Python:
+    * It correctly outputs `"uqs"` for every third character in “ubiquitous.”
+- This works because Python processes at the **character level**, not token level.
 
+* **Famous Example: “How many R’s in Strawberry?”**
+- This question went viral because models used to get it wrong.
+- Many state-of-the-art LLMs claimed there were 2 Rs, but there are actually 3.
+- Shows two weaknesses combined:
+    1) Poor **character-level perception** (due to tokenization).
+    2) Weak **counting ability.**
+- Newer models (e.g., OpenAI’s) now get it right — possibly due to **fine-tuning** or **even hardcoded corrections.**
+
+* **Takeaway**
+- LLMs struggle with:
+    * Spelling-related or **character-specific tasks**
+    * **Counting** characters or letters
+- Always be cautious with such tasks in real applications.
+- Use **external tools or code execution** for reliable results.
+- The goal here isn’t to show all flaws — just to **raise awareness** of common pitfalls when using LLMs in practice.
+
+##### **Jagged Intelligence — Inconsistent Model Behavior**
+- LLMs show **“jagged edges”** — sharp inconsistencies or unpredictable failures.
+- They can solve **complex, PhD-level problems**, yet fail at **simple ones**.
+- Example: Model claims **9.11 > 9.9**, sometimes flips its answer, not consistent.
+- These mistakes are **not reliably reproducible** — results vary per run.
+- Researchers found that when analyzing internal activations:
+    * Certain neurons **light up similarly to patterns from Bible verse references** (e.g., “John 9:11”).
+    * The model might misinterpret “9.11” as a **verse marker**, not a number.
+- Shows that **contextual associations** can override logical reasoning.
+
+**Conclusion:**
+- Treat LLMs as **stochastic, fallible tools**, not infallible systems.
+- Use them thoughtfully — **verify outputs**, don’t blindly copy results.
 
 Now that the model can imitate a helpful human, the next stage teaches it how to discover solutions and "think" for itself by solving practice problems.
 
-
 --------------------------------------------------------------------------------
 
+### **3. Stage 3: Teaching the AI to "Think" — Reinforcement Learning (RL)**
 
-3. Stage 3: Teaching the AI to "Think" — Reinforcement Learning (RL)
+* **Reinforcement learning (RL)** is the third major stage of LLM training, following:
+    1) **Pre-training** (building general knowledge)
+    2) **Supervised Fine-Tuning (SFT)** (imitating expert responses)
+* Though part of “post-training,” RL is distinct and handled by a separate team inside companies like OpenAI.
+
+* **Analogy: Training Like Going to School**
+- Think of training stages as steps in education:
+    1) Pre-training → Reading textbooks, gaining background knowledge (exposition).
+    2) SFT → Studying worked examples by experts (learning from ideal solutions).
+    3) Reinforcement Learning → Solving practice problems without seeing the full solution.
+
+* **What RL Does**
+- In RL, the model:
+    * Gets a **problem statement** and the **final answer** (like an answer key).
+    * Must **experiment** to find the best solution path.
+    * Learns by **trial and feedback**, not imitation.
+- This mirrors how humans **practice and refine** skills after learning theory.
+
+* **Key Idea**
+- RL helps models **practice decision-making, self-correct, and improve alignment.**
+- It builds on the foundation of pre-training (knowledge) and SFT (expert imitation) to develop **independent reasoning** and **behavioral refinement.**
+
+---
+![Reinforcement Learning](assets/RL-1.png, "Reinforcement Learning")
+
+---
+
+#### **3.1. RL in Action: Guess and Check for Verifiable Problems**
 
 This final stage elevates the model from an expert imitator to a genuine problem-solver. This is where it does the Practice Problems at the end of the chapter. It's not just imitating a solution anymore; it's discovering for itself how to arrive at the correct answer.
 
-3.1. RL in Action: Guess and Check for Verifiable Problems
+* **Setup Problem**
+Problem: “Emily buys 3 apples and 2 oranges for $13; oranges cost $2 each — find apple cost.”
+Multiple valid solution paths exist, all leading to $3 per apple — some short and efficient, others long and redundant.
 
-Reinforcement learning works best for problems with clear, verifiable answers, like math or coding challenges. The process is a massive-scale version of "guess and check":
+* **Key Challenge**
+- Humans can’t easily label which reasoning path is *best*.
+- Different solution styles (equations, reasoning steps, direct answers) can all work — but:
+    * Too-short paths demand high computation per token → more errors.
+    * Too-long paths waste tokens and slow inference.
+- What’s easy for humans may be hard for LLMs, and vice versa — so we can’t hand-design the “ideal” reasoning sequence.
 
-1. The model is given a single problem (e.g., a math question).
-2. It generates many different potential solutions—sometimes thousands for one problem.
-3. An automated system checks which of these solutions arrived at the correct final answer.
-4. The model is then trained only on its own successful attempts.
+* **Why Reinforcement Learning (RL) Is Needed**
+- The model must **discover for itself** which token sequences work best.
+- RL enables the model to:
+    1) Generate **many possible solutions** (sometimes thousands per prompt).
+    2) **Evaluate** which ones reach the correct final answer.
+    3) **Reinforce** the successful token paths that lead to correct results (“green”) and **discourage** failed ones (“red”).
+- This is essentially large-scale **“guess and check.”**
+- RL works best for **verifiable tasks** like math, coding, and logic—where correctness can be automatically confirmed.
 
-This is a transformative step. Why not just have a human write the best solution? Because a human labeler cannot know the most efficient reasoning path for the AI's unique, alien cognition. What seems simple to us might be a huge leap for the model, and vice-versa. Through RL, the model must discover what works for itself, reinforcing the thought patterns that reliably lead to correct answers.
+* **How the Process Works**
+1) Model receives a problem.
+2) Generates multiple candidate solutions.
+3) Automated system checks which reached the correct answer.
+4) Model is updated to favor the reasoning paths that succeeded.
+5) Repeated across tens of thousands of prompts → model self-improves.
+- This process refines the model’s internal logic, improving both **accuracy** and **robustness.**
 
-3.2. The Emergent Skill of "Thinking"
+* **Role of Supervised Fine-Tuning (SFT)**
+- **SFT:** Teaches by example — the model imitates expert demonstrations.
+- **RL:** Lets the model practice independently, discovering what reasoning patterns work best.
+- Together:
+    > SFT = imitation | RL = self-discovery
 
-A remarkable outcome of RL is that models learn to create long, step-by-step reasoning paths, often called "Chains of Thought." This is an emergent property. No human explicitly teaches the model to do this.
+![Guess and Check](assets/RL-2.png "Guess and Check")
 
-Through reinforcement, the model discovers on its own that it achieves higher accuracy when it breaks a problem down, re-evaluates its steps, retraces its logic, backtracks from errors, and reframes the problem. This process mirrors a person's internal monologue when working through a difficult problem, and it is a strategy the AI learns for itself because it works.
+#### **3.2. The Emergent Skill of “Thinking”**
+A fascinating byproduct of RL is the model’s emergence of **step-by-step reasoning** or **“Chains of Thought.”**
+No human explicitly programs this; the model *learns* that breaking problems down, backtracking, and re-evaluating steps **improves its success rate.**
+It essentially learns to “think out loud” — mirroring human internal reasoning.
+
+* **Analogy to Human Learning**
+
+| Stage | Human Equivalent | Model Process |
+|--------|------------------|----------------|
+| **Pre-training** | Reading textbooks | Learning general knowledge |
+| **Supervised Fine-Tuning** | Studying worked examples | Imitating expert solutions |
+| **Reinforcement Learning** | Doing practice problems | Discovering best reasoning paths |
+
+* **Summary Insight**
+- LLM training mirrors human learning: **read → imitate → practice.**
+- Reinforcement Learning is where models **truly internalize** problem-solving — not by copying, but by discovering what reasoning works best for themselves.
+- The result: a model that learns to think, improving in accuracy, efficiency, and reasoning depth over time.
+
+https://youtu.be/7xTGNNLPyMI?t=8867
+
+
+
+
+
+
+
+
+
+
 
 Now that we understand how the model is built, we can better understand its unique behavior and how to interact with it effectively.
 
