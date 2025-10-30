@@ -395,4 +395,11 @@ Create a customer support agent that can search through FAQ documents and answer
 
 ### **[Workshop 2: Connectors](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/blob/main/05_knowledge_connections/02_connectors_workshop.md)
 
-https://youtu.be/XR8i0I0otbE?t=4800
+- You can add MCP servers via tool
+- We learned how to connect google drive with Agent Builder.
+
+---
+![Connectors](assets/Sess05_Workshop2_Connector.png "Connectors")
+
+---
+
