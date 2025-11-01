@@ -438,4 +438,76 @@ Final Strategy: Launch with a TikTok influencer campaign showcasing eco-friendly
 **Explanation of Concept:**
 Tree of Thoughts (ToT) involves generating multiple reasoning branches to explore different solutions to a problem, evaluating each, and synthesizing the best ideas into a final answer. Each branch represents a distinct approach, which is explored, assessed for pros and cons, and scored. This method is ideal for complex, open-ended tasks like strategic planning, as it encourages creative exploration and systematic comparison, as shown in the marketing strategy example above.
 
-https://youtu.be/9VmcEktv-vo?t=6110
+### Best Practices for Effective Prompts
+
+#### 1. Be Specific and Clear
+
+**Bad:**
+```
+Write about dogs.
+```
+
+**Good:**
+```
+Write a 300-word informative article about the health benefits of owning a dog, focusing on mental health, physical activity, and social connections. Use a friendly, accessible tone for general readers.
+```
+
+#### 2. Use Action Verbs
+
+Be explicit about what you want the AI to do:
+- Analyze, Compare, Create, Describe, Evaluate
+- Extract, Generate, List, Rank, Summarize
+- Translate, Write, Explain, Classify
+
+#### 3. Provide Examples When Possible
+
+Examples are the most powerful way to communicate your expectations.
+
+#### 4. Structure Your Prompts
+
+Use clear formatting:
+```
+Task: [What you want done]
+Context: [Background information]
+Format: [How you want the output structured]
+Example: [Sample of desired output]
+```
+
+#### 5. Use Instructions Over Constraints
+
+**Better:**
+```
+Write a professional email summarizing the key points from our meeting.
+```
+
+**Avoid:**
+```
+Write an email but don't make it too long or too informal or too detailed.
+```
+
+#### 6. Control Output Format
+
+Specify exactly how you want the response structured:
+```
+Return your answer as a JSON object with the following structure:
+{
+  "main_idea": "string",
+  "supporting_points": ["string", "string"],
+  "confidence_level": "high/medium/low"
+}
+```
+
+#### 7. Use Variables for Reusability
+
+```
+Role: You are a {expertise} expert
+Task: Analyze the {document_type} and provide recommendations for {target_audience}
+Context: This is for a {industry} company with {company_size} employees
+```
+
+#### 8. Iterate and Document
+
+- Keep track of what works and what doesn't
+- Document your successful prompts
+- Test variations to improve performance
+
