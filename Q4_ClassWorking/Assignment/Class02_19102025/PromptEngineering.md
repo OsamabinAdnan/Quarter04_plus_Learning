@@ -218,6 +218,8 @@ Top-K restricts token selection to the K most likely tokens from the probability
     * Use **low P** for structured, logical tasks; **high P** for open-ended, creative prompts.
     * Often combined with *temperature* for fine-grained control over tone and style.
 
+---
+
 ## **Model offered by Giants**
 
 ### **OpenAI**
@@ -291,3 +293,91 @@ Top-K restricts token selection to the K most likely tokens from the probability
     * Enables testing of prompts that rely on **real-time context** or *dynamic event updates.*
     * Useful for *personality-driven* or *casual conversational prompting.*
     * Offers insight into how *style and tone* can be shaped through prompt phrasing to match Grok’s distinctive voice.
+
+---
+
+## **Structured Outputs**
+* Structured outputs involve prompting LLMs to return responses in specific formats like `JSON`, `XML`, or other organized structures rather than *free-form text*. 
+* This approach forces models to organize information systematically, **reduces hallucinations** by imposing format constraints, **enables easy programmatic processing**, and **facilitates integration** with applications.
+* For example, requesting movie classification results as JSON with specified schema ensures consistent, parseable responses.
+* Structured outputs are particularly valuable for **data extraction, API integration, and applications requiring reliable data formatting.**
+
+---
+
+## **Output Control**
+* Output control encompasses techniques and parameters for managing LLM response characteristics including **length, format, style, and content boundaries**.
+* Key methods include `max tokens` for length limits, `stop sequences` for precise boundaries, `temperature` for creativity control, and `structured output` requirements for format consistency.
+* Effective output control combines **prompt engineering techniques with model parameters** to ensure responses meet specific requirements. This is crucial for production applications where consistent, appropriately formatted outputs are essential for user experience and system integration.
+
+### **Max Tokens**
+* Max tokens setting controls the **maximum number of tokens an LLM can generate in response, directly impacting computation cost, response time, and energy consumption.** 
+* Setting `lower limits doesn't make models more concise—it` simply stops generation when the limit is reached.
+* This parameter is crucial for techniques like `ReAct` where models might generate unnecessary tokens after the desired response. Balancing max tokens involves considering cost efficiency, response completeness, and application requirements while ensuring critical information isn't truncated.
+
+### **Stop Sequences**
+* Stop sequences are **specific strings that signal the LLM to stop generating text when encountered, providing precise control over output length and format.**
+* Common examples include `newlines`, `periods`, or `custom markers` like `"###" or "END"`. This parameter is particularly useful for structured outputs, preventing models from generating beyond intended boundaries.
+* Stop sequences are essential for `ReAct prompting` and other scenarios where you need clean, precisely bounded responses. They offer more control than max tokens by stopping at logical breakpoints rather than arbitrary token limits.
+
+---
+
+## **Repetition Penalties**
+* Repetition penalties discourage LLMs from repeating words or phrases by reducing the probability of selecting previously used tokens. This includes `frequency penalty` (scales with usage count) and `presence penalty` (applies equally to any used token).
+* These parameters improve output quality by promoting vocabulary diversity and preventing redundant phrasing.
+
+### **Frequency Penalty**
+* Frequency penalty **reduces token probability based on how frequently they've appeared in the text**, with higher penalties for more frequent tokens. This prevents excessive repetition and encourages varied language use. The penalty scales with usage frequency, making overused words less likely to be selected again, improving content diversity.
+
+### **Presence Penalty**
+* Presence penalty **reduces the likelihood of repeating tokens that have already appeared in the text**, encouraging diverse vocabulary usage.
+* Unlike frequency penalty which considers how often tokens appear, presence penalty applies the same penalty to any previously used token, promoting varied content and creativity.
+
+---
+
+## **Prompting Techniques**
+
+### **Zero-Shot Prompting**
+* Zero-shot prompting **provides only a task description without examples**, relying on the model's training patterns. 
+* Simply describe the task clearly, provide input data, and optionally specify output format. `Works well for simple classification, text generation, and Q&A, but may produce inconsistent results for complex tasks.`
+
+### **One-Shot & Few-Shot Prompting**
+* `One-shot` **provides a single example to guide model behavior**, while `few-shot` **includes multiple examples (3-5) to demonstrate desired patterns**.
+* Examples show output structure, style, and tone, increasing accuracy and consistency.
+* Use `few-shot for complex formatting, specialized tasks, and when zero-shot results are inconsistent.`
+
+### **System Prompting**
+* System prompting **sets the overall context, purpose, and operational guidelines** for LLMs.
+* It defines the *model's role, behavioral constraints, output format requirements, and safety guardrails*.
+* System prompts provide foundational parameters that influence all subsequent interactions, ensuring consistent, controlled, and structured AI responses throughout the session.
+
+### **Role Prompting**
+* Role prompting **assigns a specific character, identity, or professional role to the LLM** to generate responses consistent with that `role's expertise`, `personality`, and `communication style`.
+* By establishing roles like` "teacher",` `"travel guide",` or `"software engineer"` you provide the model with appropriate domain knowledge, perspective, and tone for more targeted, natural interactions.
+
+### **Contextual Prompting**
+* Contextual prompting **provides specific background information or situational details relevant to the current task, helping LLMs understand nuances and tailor responses accordingly**.
+Unlike system or role prompts, contextual prompts supply immediate, task-specific information that's dynamic and changes based on the situation.
+* *For example:* `"Context: You are writing for a blog about retro 80's arcade video games. Suggest 3 topics to write articles about."` This technique ensures responses are relevant, accurate, and appropriately framed for the specific context provided.
+
+### **Step-Back Prompting**
+* Step-back prompting **improves LLM performance by first asking a general question related to the specific task, then using that answer to inform the final response**.
+* This technique activates relevant background knowledge before attempting the specific problem.
+* For example, before writing a video game level storyline, first ask` "What are key settings for engaging first-person shooter levels?"` then use those insights to create the specific storyline. This approach reduces biases and improves accuracy by grounding responses in broader principles.
+
+### **Chain of Thought (CoT) Prompting**
+* Chain of Thought prompting **improves LLM reasoning by generating intermediate reasoning steps before providing the final answer**.
+* Instead of jumping to conclusions, the model "thinks through" problems step by step. Simply adding `"Let's think step by step"` to prompts often dramatically improves accuracy on complex reasoning tasks and mathematical problems.
+
+### **Self-Consistency Prompting**
+* Self-consistency prompting **generates multiple reasoning paths for the same problem using higher temperature settings, then selects the most commonly occurring answer through majority voting**.
+* This technique `combines sampling and voting to improve accuracy and provides pseudo-probability of answer correctness`.
+* While more expensive due to multiple API calls, it significantly enhances reliability for complex reasoning tasks by reducing the impact of single incorrect reasoning chains and leveraging diverse problem-solving approaches.
+
+### **Tree of Thoughts (ToT) Prompting**
+* Tree of Thoughts (ToT) **generalizes Chain of Thought by allowing LLMs to explore multiple reasoning paths simultaneously rather than following a single linear chain**.
+* This approach maintains a `tree structure` where each thought represents a coherent step toward solving a problem, enabling the model to `branch out` and explore different reasoning directions.
+* ToT is particularly `effective for complex tasks` requiring exploration and is well-suited for problems that benefit from considering multiple solution approaches before converging on the best answer.
+
+### **ReAct Prompting**
+* ReAct (Reason and Act) prompting **enables LLMs to solve complex tasks by combining reasoning with external tool interactions.**
+* It follows a `thought-action-observation loop`: analyze the problem, perform actions using external APIs, review results, and iterate until solved. Useful for research, multi-step problems, and tasks requiring current data.
