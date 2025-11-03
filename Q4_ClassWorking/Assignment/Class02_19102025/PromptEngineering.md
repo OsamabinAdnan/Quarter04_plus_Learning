@@ -381,3 +381,60 @@ Unlike system or role prompts, contextual prompts supply immediate, task-specifi
 ### **ReAct Prompting**
 * ReAct (Reason and Act) prompting **enables LLMs to solve complex tasks by combining reasoning with external tool interactions.**
 * It follows a `thought-action-observation loop`: analyze the problem, perform actions using external APIs, review results, and iterate until solved. Useful for research, multi-step problems, and tasks requiring current data.
+
+### **Automatic Prompt Engineering**
+* **Automatic Prompt Engineering (APE)** uses LLMs to generate and optimize prompts automatically, reducing human effort while enhancing model performance.
+* The *process involves prompting a model to create multiple prompt variants, evaluating them using metrics like BLEU or ROUGE, then selecting the highest-scoring candidate.*
+* For example, generating 10 variants of customer order phrases for chatbot training, then testing and refining the best performers. This iterative approach helps discover effective prompts that humans might not consider, automating the optimization process.
+
+---
+
+## **AI Red Teaming**
+* AI red teaming **involves deliberately testing AI systems to find vulnerabilities, biases, or harmful behaviors through adversarial prompting.**
+* Teams attempt to `make models produce undesired outputs, bypass safety measures, or exhibit problematic behaviors.` This process helps identify weaknesses and improve AI safety and robustness before deployment.
+
+---
+
+## **Improving Reliability:**
+
+### **Prompt Debiasing**
+* Prompt debiasing **involves techniques to reduce unwanted biases in LLM outputs by carefully crafting prompts.**
+* This includes using neutral language, diverse examples, and explicit instructions to avoid stereotypes or unfair representations.
+* Effective debiasing helps ensure AI outputs are more fair, inclusive, and representative across different groups and perspectives.
+
+### **Prompt Ensembling**
+* Prompt ensembling **combines multiple different prompts or prompt variations to improve output quality and consistency.** 
+* This *technique involves running the same query with different prompt formulations and aggregating results through voting, averaging, or selection*.
+* Ensembling reduces variance and increases reliability by leveraging diverse prompt perspectives.
+
+### **LLM Self Evaluation**
+* LLM self-evaluation **involves prompting models to assess their own outputs for quality, accuracy, or adherence to criteria.**
+* This technique can identify `errors`, `rate` `confidence levels`, or `check` if responses meet specific requirements.
+* Self-evaluation helps *improve output quality through iterative refinement and provides valuable feedback for prompt optimization.*
+
+### **Calibrating LLMs**
+* Calibrating LLMs **involves adjusting models so their confidence scores accurately reflect their actual accuracy.**
+* *Well-calibrated models express appropriate uncertainty - being confident when correct and uncertain when likely wrong.*
+* This helps users better trust and interpret model outputs, especially in critical applications where uncertainty awareness is crucial.
+
+## **Prompting Best Practices**
+
+* Provide few-shot examples for structure or output style you need.
+* Keep your prompt short and concise
+* Ask for structured output if it helps e.g. JSON, XML, Markdown, CSV etc.
+* Use variables / placeholders in your prompts for easier configuration.
+* Prioritize giving clearer instructions over adding constraints.
+* Control the maximum output length.
+* Experiment with input formats and writing styles.
+* Tune sampling (temperature, top-K, top-P) for determinism vs creativity.
+* Guard against prompt injection; sanitize user text.
+* Automate evaluation; integrate unit tests for outputs.
+* Document and track prompt versions
+* Optimize for latency and cost in production pipelines.
+* Document decisions, failures and learning for future devs.
+* Delimit different sections with triple backticks or XML tags
+
+Document Link ▶ [Prompt Engineering Roadmap](https://roadmap.sh/prompt-engineering)
+
+
+----------------------------------------------------- END -----------------------------------------------------
