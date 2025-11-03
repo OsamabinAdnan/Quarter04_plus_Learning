@@ -518,7 +518,7 @@ Now that the model can imitate a helpful human, the next stage teaches it how to
 - It builds on the foundation of pre-training (knowledge) and SFT (expert imitation) to develop **independent reasoning** and **behavioral refinement.**
 
 ---
-![Reinforcement Learning](assets/RL-1.png, "Reinforcement Learning")
+![Reinforcement Learning](assets/RL-1.png "Reinforcement Learning")
 
 ---
 
@@ -580,13 +580,127 @@ It essentially learns to “think out loud” — mirroring human internal reaso
 - Reinforcement Learning is where models **truly internalize** problem-solving — not by copying, but by discovering what reasoning works best for themselves.
 - The result: a model that learns to think, improving in accuracy, efficiency, and reasoning depth over time.
 
-https://youtu.be/7xTGNNLPyMI?t=8867
+##### **DeepSeek-R1 — Reinforcement Learning and “Thinking” Models**
+
+**Overview**
+
+* Traditional large language model (LLM) training involves two established stages:
+    1. **Pre-training** – Learning from large text datasets to capture general language understanding.
+    2. **Supervised Fine-Tuning (SFT)** – Learning from curated examples where humans demonstrate ideal responses.
+* The **third stage, Reinforcement Learning (RL),** is **newer and still experimental** but shows **remarkable progress** in enabling reasoning and problem-solving.
+
+**Why Reinforcement Learning (RL) Is Crucial**
+* RL in LLMs is still **non-standard and complex**, requiring:
+    - Careful setup of **reward signals, training parameters, and prompt distributions.**
+    - Fine-grained mathematical control to determine **which solutions to reinforce and how much to train.**
+* Historically, companies like **OpenAI** and other major LLM providers have experimented with RL internally but `did not publish details publicly.`
+* The **DeepSeek-R1 paper**, released by **DeepSeek (DC Kai, China)**, was pivotal because:
+    - It **publicly documented** how RL can dramatically enhance reasoning capabilities in LLMs.
+    - It **shared technical details** for reproducing results — a first in open research for reasoning optimization.
 
 
+**What Happens When RL Is Applied Correctly**
+* DeepSeek-R1 demonstrated **significant accuracy gains** on mathematical reasoning tasks.
+* As the RL training progressed:
+    - Accuracy **increased steadily** across thousands of training steps.
+    - The model began producing **longer and more detailed responses** — indicating deeper reasoning.
+* These extended responses weren’t just verbose — they reflected **emergent cognitive behaviors**, such as:
+    - **Self-checking** (“Wait, that doesn’t seem right — let me re-evaluate.”)
+    - **Backtracking and reframing** problems from different angles.
+    - **Analogical reasoning** and **multi-step verification.**
 
+**Emergent “Thinking” Behavior**
+* Through RL, the model **learned internal problem-solving strategies** similar to human reasoning:
+    - Testing hypotheses.
+    - Revising intermediate steps.
+    - Cross-checking multiple methods for consistency.
+* Importantly, these strategies **emerged naturally** — they were **not hard-coded** by engineers.
+* This process led to the rise of **“thinking models”**, capable of **chain-of-thought reasoning** and **self-correction.**
 
+**Practical Demonstration**
+* Example: Solving a simple math problem (“Emily buys 3 apples and 2 oranges…”).
+    - **SFT-only models** produce concise, static answers that imitate experts.
+    - **RL-trained (DeepSeek-R1) models** display active reasoning:
+        + They question assumptions.
+        + Verify results from multiple perspectives.
+        + Summarize findings confidently, showing traceable logic.
+* The reasoning process increases both **accuracy** and **human-like clarity.**
 
+**Accessing DeepSeek-R1 and Similar Models**
+* DeepSeek-R1’s **open-weight model** is publicly available and can be tested on:
+    - **chat.deepseek.com** (requires enabling the *“Deep Thinking”* mode).
+    - **Together.ai** – an American-hosted inference platform for state-of-the-art open models.
+* Other providers (e.g., Google’s **Gemini 2.0 Flash Thinking**, OpenAI’s **o1/o3** reasoning models) offer **RL-based experimental reasoning systems.**
+* These “thinking models” remain **early-stage (as of 2025)** and typically require **paid access** for full performance tiers.
 
+**Comparison and Summary**
+
+| Model Type | Training Method | Key Strength | Limitation |
+|------------|-----------------|-------------|-------------|
+| **SFT Models** | Mimic expert examples | Fast, reliable responses | Limited reasoning depth |
+| **RL (“Thinking”) Models** | Trial-and-error optimization | Deep reasoning, self-correction | Slower responses, complex tuning |
+
+**Summary Takeaways:**
+* Reinforcement Learning enables **emergent reasoning** — not imitation but genuine *thought simulation.*
+* DeepSeek-R1 proved that LLMs can **“think out loud”**, refining solutions step-by-step.
+* This marks the beginning of **reasoning-centric AI** — capable of structured cognitive behavior beyond memorization.
+
+![Deep Seek R1](assets/RL-3.png "Deep Seek R1")
+
+##### **AlphaGo — The Roots of Reinforcement Learning Power**
+
+**Background**
+* The **success of RL** in AI is not new; a landmark example is **DeepMind’s AlphaGo.**
+* AlphaGo demonstrated **superhuman performance** in the game of **Go**, showcasing the **transformative potential** of RL.
+
+**Supervised Learning vs Reinforcement Learning in AlphaGo**
+* ***Supervised Learning Phase:***
+    - The model learned by `imitating expert human games.`
+    - Result: It performed well but **plateaued** — never surpassing top human players like **Lee Sedol.**
+* ***Reinforcement Learning Phase:***
+    - The system played **against itself**, iteratively improving through self-play.
+    - Moves leading to **victory were rewarded**, forming a self-optimizing learning loop.
+    - Result: The model exceeded human performance and developed **strategically novel moves.**
+
+**Key Insights from AlphaGo**
+* The **Elo rating chart** from the research shows:
+    - Supervised learning → limited improvement.
+    - Reinforcement learning → continuous, self-directed progress.
+* RL allows **discovery beyond human knowledge:**
+    - It is not confined to human imitation.
+    - It can explore and optimize strategies **humans would never consider.**
+
+**The Famous “Move 37” Moment**
+* During AlphaGo vs. Lee Sedol, **Move 37** shocked experts:
+    - Probability of a human making that move: **1 in 10,000.**
+    - Initially seen as an error, it later proved to be **brilliant and decisive.**
+* Significance:
+    - A clear example of **AI creativity emerging through RL.**
+    - Demonstrated that **self-learned strategies** can surpass human intuition.
+
+**Parallels to Modern LLMs**
+* Just as AlphaGo learned to `win through experimentation`, RL-based LLMs learn to **reason through problem-solving.**
+* Instead of board moves:
+    - LLMs explore **reasoning steps** or **“chains of thought”** that lead to correct answers.
+* Future LLMs may:
+    - Develop **new cognitive frameworks** or **alternative reasoning languages** beyond English.
+    - Discover novel **analogies and thought strategies** inaccessible to humans.
+
+**Implications for Future AI**
+* Reinforcement Learning allows systems to:
+    - Go `beyond human benchmarks.`
+    - Learn `independently of imitation.`
+    - Innovate new `reasoning paradigms` or `mental representations.`
+* Current research focuses on creating **diverse “practice environments”** — large datasets of problems where LLMs can train through trial and error.
+* The goal: enable models to **generalize reasoning** across all domains of knowledge, just as AlphaGo generalized across Go strategies.
+
+**Summary Takeaways**
+* **AlphaGo** proved that **reinforcement learning surpasses human imitation.**
+* Its success paved the way for **DeepSeek-R1 and modern reasoning LLMs.**
+* The same principle — learning by **trial, feedback, and self-improvement** — is now applied to **language, reasoning, and problem-solving.**
+* Future AI may evolve **unique reasoning methods,** possibly **non-human cognitive strategies** or **self-invented symbolic systems.**
+
+https://youtu.be/7xTGNNLPyMI?t=9727
 
 
 
