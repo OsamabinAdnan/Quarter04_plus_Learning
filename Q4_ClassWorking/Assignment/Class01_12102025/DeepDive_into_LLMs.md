@@ -804,60 +804,143 @@ It essentially learns to “think out loud” — mirroring human internal reaso
     - They can still **hallucinate** or fail on edge cases (the “Swiss cheese” analogy — many strengths, small unpredictable holes).
     - Users should **validate outputs**, treat them as **assistants, not authorities**, and remain **accountable** for final work.
 
-https://youtu.be/7xTGNNLPyMI?t=11375
+---
 
+### **Preview of Things to Come**
+Large Language Models (LLMs) are rapidly evolving beyond text-only systems. The next wave of advancements will bring major shifts in their capabilities and applications:
 
+* **Multimodal Integration**
+    - LLMs will soon process **audio, images, and text** natively within the same model.
+    - Audio can be tokenized using `spectrogram slices,` and images can be tokenized through `patches`, allowing them to be represented as token sequences similar to text.
+    - This enables natural, context-rich conversations — hearing, speaking, and “seeing” simultaneously.
 
+* **Autonomous Agents**
+    - Current LLMs handle isolated tasks provided by users. Future models will evolve into **persistent agents** capable of performing **long-running, multi-step jobs** autonomously.
+    - These agents will report progress, correct errors, and require **human supervision**, leading to new concepts like **human-to-agent ratios**, similar to human-robot ratios in manufacturing.
 
+* **Pervasive and Invisible AI Integration**
+    - LLMs will become embedded across digital environments, operating seamlessly within everyday tools.
+    - Systems like OpenAI’s **Operator** demonstrate how models can **control interfaces**, performing keyboard and mouse actions on a user’s behalf.
 
+* **Ongoing Research and New Learning Methods**
+    - Current models are **static** after training — they don’t update their internal parameters post-deployment.
+    - Humans, however, continuously learn (e.g., through sleep). Bridging this gap may lead to innovations such as **test-time training**, where models can learn and adapt dynamically during inference.
+    - Expanding **context windows** helps models process longer inputs, but this method has scalability limits. Future research must find new mechanisms for **long-term, multimodal reasoning** without excessive resource demands.
 
+---
 
-Now that we understand how the model is built, we can better understand its unique behavior and how to interact with it effectively.
+### **Keeping Track of LLMs**
+Staying current with LLM advancements is crucial due to the field’s fast pace. Three key resources help monitor progress:
 
+#### **1. AI’s Leaderboard (LM Arena)**
+* A ranking system where **human evaluators** compare model outputs blindly to determine quality.
+* Lists top-performing models such as **Google Gemini, OpenAI GPT, and DeepSeek.**
+* **`Notable highlight:`** **DeepSeek**, an open-weight model under the **MIT License**, offers public access to its weights — a rare and impactful move for a model of its caliber.
+* **`Caveat:`** The leaderboard may now be **partially gamed**, so treat results as guidance rather than absolute truth. Always test models on your specific tasks.
 
---------------------------------------------------------------------------------
+#### **2. AI News Newsletter (by Swyx and collaborators)**
+* A frequently updated and **comprehensive newsletter** summarizing recent LLM and AI developments.
+* Mixes **human curation** with **automated generation via LLMs.**
+* Ideal for staying informed about new papers, releases, and trends without missing key updates.
 
+#### **3.Social Media — X (formerly Twitter)**
+* Many breakthroughs, model releases, and community discussions occur directly on X.
+* Following credible AI researchers, developers, and organizations is one of the fastest ways to stay informed in real time.
 
-4. Understanding Your AI Companion: Key "Psychological" Quirks
+---
 
-AI models don't think like humans. Their capabilities are not a solid block but more like Swiss cheese—incredibly powerful in most areas, but with seemingly random holes. Understanding their unique cognitive quirks can help you get better results and make sense of their occasional strange behavior.
+### **Where to Find LLMs**
+* Depending on whether you want **proprietary** or **open-weight** models, there are different platforms to access and experiment with LLMs:
+    - **Proprietary Models**
+        + Access via the provider’s official site:
+            * OpenAI → https://chat.openai.com
+            * Google Gemini → https://gemini.google.com or search AI Studio on google
+        + These hosted versions are typically user-friendly and optimized for general use.
+    - **Open-Weight Models (Community-Driven)**
+        + **`Together.ai`** offers a **playground** hosting multiple open models (e.g., DeepSeek, LLaMA, etc.) for interactive use.
+        + **`Hyperbolic.ai`** specializes in serving **base models** (e.g., LLaMA 3.1 base), ideal for developers and researchers exploring model internals.
+    - **Local Execution on Personal Devices**
+        + Smaller or **distilled** versions of models (compressed and quantized for lower precision) can run locally. Distilled are the smaller version of deep-seek models.
+        + Example: **LM Studio** — a desktop app enabling users to download, run, and chat with LLMs entirely offline on their computer’s GPU.
+        + While LM Studio’s interface may be complex, it allows privacy-preserving experimentation without cloud dependency.
+    - **Summary**
 
-4.1. The Truth About Hallucinations
+    | **Focus Area** | **Key Concept** | **Example or Tool** |
+    |----------------|-----------------|---------------------|
+    | **Future Capabilities** | Multimodal LLMs, Autonomous Agents, Continuous Learning | Operator, Test-Time Training |
+    | **Tracking Progress**   | Leaderboards, AI Newsletters, Social Media | El Marina, AI News, X (Twitter) |
+    | **Using Models**        | Proprietary & Open-Weight Access | ChatGPT, Gemini, Together.ai, LM Studio |
 
-Hallucinations—when an AI confidently states incorrect information—happen because the model is built to imitate the confident style of its training data. But how do you teach it to say "I don't know"?
+![Post RL](assets/final-1.png "Post RL")
 
-The key insight is to connect the model's internal state to its verbal output. You can imagine that somewhere inside the network, a neuron lights up when the model is uncertain. However, by default, that neuron isn't wired to the words "I don't know." The model will simply make its best guess in a confident tone, just like its training examples.
+---
 
-To fix this, we explicitly create training examples where the correct answer is to admit uncertainty. This teaches the model to connect its internal state of "not knowing" to the token sequence for "I'm sorry, I don't have that information." This wiring is a crucial step in making the model more truthful.
+### **Grand Summary**
 
-4.2. Working Memory vs. Long-Term Memory
+**Understanding What Happens When You Use ChatGPT**
+When you visit **chat.openai.com**, type a query, and hit **“Go”**, a complex process unfolds behind the scenes. Here’s a simplified breakdown of how it works and what you’re actually interacting with:
 
-An LLM has two distinct types of knowledge. Understanding this is key to getting high-quality outputs.
+#### **1. What Happens Internally**
+* **Tokenization and Conversation Formatting**
+    - Your text input is **broken down into tokens** (small units of text).
+    - These tokens are inserted into a **conversation protocol format**, maintaining the structured exchange between *user* and *assistant*.
+    - Internally, this becomes a **one-dimensional sequence of tokens** that the model processes.
+    - The model then **predicts and appends new tokens** — effectively performing a form of *intelligent autocomplete* to generate the response you see.
 
-Memory Type	Analogy	Description
-Parameters	Vague, Long-Term Recollection	Knowledge learned during pre-training and stored in the model's weights. Like something you read a month ago; the details might be fuzzy.
-Context Window	Active, Working Memory	The text currently in your conversation prompt. Information here is directly accessible, in-focus, and not a vague recollection.
+#### **2. The Three Key Stages of Model Development**
+##### **1. Pre-Training: Acquiring Knowledge**
+* This is where the model **learns from vast internet data** to build its foundational understanding of language and knowledge.
+* The neural network internalizes facts, grammar, and general reasoning patterns.
 
-Practical Takeaway: For the highest quality results on a specific topic, paste the relevant information directly into the prompt. This places it in the model's "working memory," allowing for far more accurate and detailed responses.
+##### **2. Supervised Fine-Tuning (SFT): Learning to Behave Like an Assistant**
+* Companies like OpenAI curate **large datasets of human–assistant conversations** (often over a million examples).
+* Human labelers are hired and trained to **write ideal assistant responses** to a wide variety of prompts.
+* The model then **learns to imitate** these examples.
+* In essence, the model becomes a **simulation of an OpenAI data labeler**, following specific guidelines to produce high-quality responses.
 
-4.3. Why AIs Can Struggle with "Simple" Tasks
+##### **3. Reinforcement Learning (RL or RLHF): Refining Reasoning**
+* Some advanced models (e.g., *OpenAI’s “thinking models” like o1-mini*) undergo **reinforcement learning**, where they practice solving reasoning tasks and receive feedback to improve.
+* This helps them develop **internal thinking strategies** similar to human “chains of thought,” enabling better problem-solving and self-correction.
 
-A core reason for many strange failures is simple: models need tokens to think.
+#### **3. What the Model’s Response Represents**
+* The text you receive is not from a human but from a **neural simulation** of how a trained data labeler *would* respond.
+* Each token is generated through a **mathematical computation** involving the model’s parameters and previous tokens.
+* Because of computational constraints, the process is **approximate and lossy** — not a true reproduction of human thought but an efficient simulation.
 
-Complex calculations cannot be done in a single computational leap. The reasoning must be spread out over many tokens. For example, if you ask a model "Emily buys 3 apples and 2 oranges..." and demand the answer in a single token, it might succeed. But if you make it "Emily buys 23 apples and 17 oranges..." with more complex numbers, it will likely fail. It needs the "space" of multiple tokens to write out the intermediate steps and arrive at the correct answer.
+#### **4. Recognizing Model Limitations**
+* Despite their impressive capabilities, LLMs have inherent weaknesses:
+    - **Hallucinations** — Models can fabricate information that sounds plausible but is false.
+    - **“Swiss Cheese” Capability** — While strong in many areas, models have random “holes” in reasoning (e.g., failing simple arithmetic or logic).
+    - **Token Context Limits** — They can only “think” within the constraints of their context window.
+    - **Cognitive Difference** — What’s easy for humans (like common sense) can be hard for models, and vice versa.
+* In short, LLMs are **powerful simulators**, not genuine thinkers or reasoners. They produce responses that *resemble* ideal human answers, but the underlying process is mechanical and statistical.
 
-Because the model sees the world as these tokens, not as individual letters, it also struggles with tasks that are trivial for humans, like counting the characters in a word or accurately reversing a string. It doesn't have direct access to letters—only to the token representations it was trained on.
+#### **5. The Promise of “Thinking Models”**
+* Models that incorporate **reinforcement learning** move closer to genuine reasoning ability.
+* They can develop **novel problem-solving strategies**, potentially generating insights no human has conceived before.
+* However, these are still **early-stage, experimental systems**, most effective in **verifiable domains** (e.g., mathematics, programming).
+* It remains **an open research question** whether such reasoning transfers to **unverifiable domains** like creative writing or subjective analysis.
 
+#### **6. Practical Guidance for Users**
+* **Use LLMs as powerful tools — not as infallible authorities.**
+* They are best for:
+    - Brainstorming and idea generation.
+    - Writing first drafts and outlines.
+    - Accelerating research or coding workflows.
+* **Always verify outputs**, especially when accuracy or critical thinking matters.
+* Think of the model as a **collaborative assistant**, not a replacement for human judgment.
 
---------------------------------------------------------------------------------
+#### **7. The Big Picture**
+* LLMs represent a **transformative shift in human-computer interaction.**
+* They blend **vast pre-learned knowledge** with **emergent reasoning abilities** derived from reinforcement learning.
+* We are witnessing the **early stages** of a technology that may eventually achieve creative and analytical breakthroughs once thought impossible.
+* Despite imperfections, the **potential for productivity, creativity, and innovation** is immense — as long as users remain informed, cautious, and critical.
 
+### **Final Thought**
 
-5. Conclusion: From Internet Simulator to Thinking Partner
+> **“Use LLMs as a tool in your toolbox — verify their work, own the results, and let them inspire your next idea.”**
 
-The journey to create an AI like ChatGPT is a methodical, three-stage process, much like learning from a textbook. It begins with pre-training, where a base model reads the "Exposition" of the internet to gain knowledge. It is then transformed through supervised fine-tuning, where it studies "Worked Examples" from human experts to become a helpful conversationalist. Finally, reinforcement learning allows it to do the "Practice Problems," discovering for itself how to reason and solve complex challenges.
-
-These models are not magical beings. They are complex systems whose knowledge, personality, and unique cognitive abilities are shaped, step-by-step, by the data they train on. Understanding this process reveals not just how they work, but how we can work with them as increasingly powerful partners in thought.
-
+---
 
 **Links of this video**
 * [ChatGPT](https://chatgpt.com/)
