@@ -403,3 +403,12 @@ Create a customer support agent that can search through FAQ documents and answer
 
 ---
 
+## **✅ Session 06- Knowledge Connections (Cont.) (30/10/2025)**
+
+### **Context7**
+* Context7 is a tool/service that uses the MCP standard to provide external documentation/context to an LLM.
+* It serves as an MCP server: an external service that the LLM client queries to get additional context (documentation) before responding.
+* Therefore, in relation to MCP, Context7 is an implementation of an MCP-server designed specifically for serving library documentation and code examples.
+
+[Context 7](https://context7.com/)
+
