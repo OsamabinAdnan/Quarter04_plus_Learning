@@ -422,4 +422,17 @@ Create a customer support agent that can search through FAQ documents and answer
 ---
 * Check session 6 file for agent kit file for more detail
 
+### **[Workshop 4: MCP Nodes](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/blob/main/05_knowledge_connections/04_mcp_nodes_workshop.md)
+
+An MCP node enables the agent to fetch, interpret, and integrate live or contextual data (like documentation, APIs, databases, or knowledge bases) directly into its reasoning chain.
+* Instead of adding MCP as a tool in agent, we can apply MCP node to do the same job.
+---
+![MCP Node with Output](assets/contact7_Workshop4_1.png "MCP Node with Output")
+
+---
+![MCP Node with Comment](assets/contact7_Workshop4_2.png "MCP Node with Comment")
+
+---
+
+## **✅ Session 07: Implement Agentic Design Patterns with OpenAI AgentKit Agent Builder | AI-100 (05/11/2025)**
 
