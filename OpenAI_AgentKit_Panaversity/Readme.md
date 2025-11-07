@@ -405,10 +405,21 @@ Create a customer support agent that can search through FAQ documents and answer
 
 ## **✅ Session 06- Knowledge Connections (Cont.) (30/10/2025)**
 
-### **Context7**
+### **[Workshop 3: MCP Servers](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/blob/main/05_knowledge_connections/03_mcp_workshop.md)
+
+#### **Context7**
 * Context7 is a tool/service that uses the MCP standard to provide external documentation/context to an LLM.
 * It serves as an MCP server: an external service that the LLM client queries to get additional context (documentation) before responding.
 * Therefore, in relation to MCP, Context7 is an implementation of an MCP-server designed specifically for serving library documentation and code examples.
 
 [Context 7](https://context7.com/)
+
+* I have added context7 API key in `.env` file for personal use
+
+---
+![Context7 Connectivity with AgentKit](assets/contact7.png "Context7 Connectivity with AgentKit")
+
+---
+* Check session 6 file for agent kit file for more detail
+
 
