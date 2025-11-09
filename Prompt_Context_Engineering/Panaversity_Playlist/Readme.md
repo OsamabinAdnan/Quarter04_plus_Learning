@@ -59,7 +59,7 @@ Your task is to:
 
 Here’s my rough prompt: [INSERT YOUR PROMPT HERE]
 ```
-### **What is Prompt Engineering?**
+### **1. What is Prompt Engineering?**
 Prompt engineering is the art and science of crafting instructions that guide AI language models to produce desired outputs. Think of it as learning to communicate effectively with AI systems to achieve specific goals.
 
 **Why is it important?**
@@ -116,7 +116,7 @@ Prompt engineering is the art and science of crafting instructions that guide AI
 
 **One-liner:** Prompt engineering is *how you ask*; context engineering is *what you show*. Combine them for reliable, scalable LLM apps.
 
-### Understanding Large Language Models
+### **2. Understanding Large Language Models**
 
 #### How LLMs Work (The Basics)
 
@@ -129,7 +129,7 @@ Large Language Models are prediction engines that:
 #### Key Concept: Autocompletion
 LLMs don't "understand" in the human sense—they're sophisticated autocomplete systems. Your prompt sets up the context for what should come next.
 
-### Essential Configuration Settings
+### **3. Essential Configuration Settings**
 
 Before diving into prompt techniques, understand these key parameters that control AI behavior:
 
@@ -162,7 +162,7 @@ Before diving into prompt techniques, understand these key parameters that contr
 
 `Action` => connect with `MCP Server` => `Multi Models` => `Text + Images + Videos`
 
-### **Fundamental Prompting Techniques**
+### **4. Fundamental Prompting Techniques**
 
 #### 1. Zero-Shot Prompting
 
@@ -259,7 +259,7 @@ Context: You're writing for a tech blog aimed at beginners who have never coded 
 Write a 200-word explanation of what an API is, using simple language and practical examples.
 ```
 
-### Advanced Prompting Strategies
+### **5. Advanced Prompting Strategies**
 
 #### 1. Chain of Thought (CoT) Prompting
 
@@ -438,7 +438,7 @@ Final Strategy: Launch with a TikTok influencer campaign showcasing eco-friendly
 **Explanation of Concept:**
 Tree of Thoughts (ToT) involves generating multiple reasoning branches to explore different solutions to a problem, evaluating each, and synthesizing the best ideas into a final answer. Each branch represents a distinct approach, which is explored, assessed for pros and cons, and scored. This method is ideal for complex, open-ended tasks like strategic planning, as it encourages creative exploration and systematic comparison, as shown in the marketing strategy example above.
 
-### Best Practices for Effective Prompts
+### **6. Best Practices for Effective Prompts**
 
 #### 1. Be Specific and Clear
 
@@ -511,3 +511,204 @@ Context: This is for a {industry} company with {company_size} employees
 - Document your successful prompts
 - Test variations to improve performance
 
+## **Class 03: Prompt and Context Engineering**
+
+### **7. [Common Pitfalls and How to Avoid Them](https://github.com/panaversity/learn-low-code-agentic-ai/tree/main/00_prompt_engineering#common-pitfalls-and-how-to-avoid-them)**
+
+#### a. Ambiguous Instructions
+
+**Problem:** Vague requests lead to unpredictable outputs
+**Solution:** Be specific about what you want
+
+#### b. Contradictory Instructions
+
+**Problem:** Conflicting requirements confuse the model
+**Solution:** Review prompts for internal consistency
+
+#### c. Too Many Constraints
+
+**Problem:** Over-constraining limits model creativity
+**Solution:** Focus on positive instructions rather than long lists of don'ts
+
+#### d. Ignoring Token Limits
+
+**Problem:** Responses get cut off mid-sentence
+**Solution:** Set appropriate limits and structure accordingly
+
+#### e. Not Testing Variations
+
+**Problem:** Assuming first attempt is optimal
+**Solution:** Test different phrasings, examples, and approaches
+
+---
+
+### **8. [Hands-On Examples](https://github.com/panaversity/learn-low-code-agentic-ai/blob/main/00_prompt_engineering/readme.md#hands-on-examples)
+
+#### **Example 1: Content Creation**
+
+**Task:** Create a social media post
+
+**Basic prompt:**
+```
+Write a social media post about coffee.
+```
+
+**Improved prompt:**
+```
+Write an engaging Instagram post for a local coffee shop's new seasonal drink. 
+
+Context: Fall season launch of Pumpkin Spice Maple Latte
+Audience: Coffee enthusiasts aged 25-40
+Tone: Warm, inviting, not overly promotional
+Format: 
+- Main text (150 characters max)
+- 3-5 relevant hashtags
+- Call to action
+
+Include sensory details about taste and aroma.
+```
+
+#### **Example 2: Data Analysis**
+
+**Task:** Analyze customer feedback
+
+**Basic prompt:**
+```
+What do customers think about our product?
+```
+
+**Improved prompt:**
+```
+Analyze the following customer reviews and provide insights:
+
+Reviews: [paste reviews here]
+
+Please provide:
+1. Overall sentiment breakdown (positive/negative/neutral percentages)
+2. Top 3 most mentioned positive aspects
+3. Top 3 most mentioned concerns or issues
+4. Specific recommendations for improvement
+5. Confidence level in your analysis
+
+Format as a structured report with clear headings.
+```
+
+#### **Example 3: Code Generation**
+
+**Task:** Create a function
+
+**Basic prompt:**
+```
+Write a function to sort a list.
+```
+
+**Improved prompt:**
+```
+Write a Python function that:
+
+Requirements:
+- Sorts a list of dictionaries by a specified key
+- Handles missing keys gracefully (items without key go to end)
+- Supports both ascending and descending order
+- Includes proper error handling
+- Has clear documentation
+
+Example usage:
+data = [{"name": "Alice", "age": 30}, {"name": "Bob", "age": 25}]
+result = sort_by_key(data, "age", descending=False)
+
+Please include:
+- Function definition with type hints
+- Docstring with parameters and return value
+- Example usage
+- Brief explanation of the approach
+```
+
+### 9. **Testing and Iteration**
+
+#### a. **Create a Testing Framework**
+
+A testing framework is a documented, organized system for recording and analyzing how different prompts perform when interacting with an AI model. It involves creating a standardized way to:
+
+- **Record** prompt variations, their goals, and settings (e.g., model used, temperature).
+- **Test** these prompts to assess the quality of the AI's outputs.
+- **Evaluate** results based on specific criteria (e.g., accuracy, relevance, style).
+- **Iterate** by refining prompts based on insights from the tests.
+
+The framework ensures that prompt engineering is not a haphazard process but a methodical one, allowing users to identify what works, what doesn’t, and how to improve prompts over time.
+
+Document your prompts systematically:
+
+| Prompt Version | Goal | Model | Temperature | Output Quality | Notes |
+|----------------|------|-------|-------------|----------------|--------|
+| v1.0 | Generate blog post | GPT-4 | 0.7 | Good | Too formal |
+| v1.1 | Generate blog post | GPT-4 | 0.7 | Better | Added tone guidance |
+
+#### b. **A/B Test Different Approaches**
+
+A/B testing in prompt engineering involves creating and trying out multiple versions of a prompt (e.g., different wordings, structures, examples, or settings like temperature) to see which version yields the most accurate, relevant, or high-quality output from the AI. It’s a systematic way to experiment and optimize prompts by comparing their performance side by side.
+
+Try variations:
+- Different example sets
+- Various instruction phrasings
+- Different temperature settings
+- Alternative output formats
+
+#### c. **Evaluate Results**
+
+Consider:
+- **Accuracy**: Does it answer correctly?
+- **Relevance**: Is it on-topic?
+- **Completeness**: Does it cover everything needed?
+- **Style**: Does it match the desired tone?
+- **Format**: Is it structured as requested?
+
+#### d. **Common Evaluation Metrics**
+
+- **Consistency**: Same prompt, similar outputs
+- **Following instructions**: Adherence to specific requirements
+- **Creativity** (when desired): Novel and interesting responses
+- **Factual accuracy**: Correctness of information
+
+### **Advanced Tips for 2025**
+
+#### 1. Leverage Structured Outputs
+
+Use JSON, XML, or other structured formats for complex data:
+```
+Return analysis as JSON:
+{
+  "summary": "brief overview",
+  "key_insights": ["insight1", "insight2"],
+  "recommendations": [
+    {
+      "action": "specific action",
+      "priority": "high/medium/low",
+      "timeline": "timeframe"
+    }
+  ]
+}
+```
+
+#### 2. Context Management
+
+For long conversations:
+- Summarize previous context
+- Use system messages effectively
+- Break complex tasks into smaller parts
+
+#### 3. Multi-Modal Prompting
+
+When working with models that support images:
+- Be explicit about what to look for in images
+- Combine text and visual instructions
+- Use images as examples or context
+
+#### 4. Prompt Chaining
+
+Break complex tasks into steps:
+```
+Step 1: Research the topic
+Step 2: Create an outline based on research
+Step 3: Write the full content based on outline
+```
