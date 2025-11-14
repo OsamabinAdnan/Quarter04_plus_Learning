@@ -52,7 +52,7 @@ Discussing Quiz from Repo **[Quiz.md](https://github.com/panaversity/learn-agent
 - You will be able to transform whole company, by redefining work, ways of doing work and business.
 
 ---
-![Organizational Paradigms](assets/ai_leading.jpg)
+![Organizational Paradigms](../assets/ai_leading.jpg)
 
 ---
 
@@ -83,7 +83,7 @@ Discussing Quiz from Repo **[Quiz.md](https://github.com/panaversity/learn-agent
 * `AI:` Mix of deep and broad skills (**M-shaped** workers), constant learning, and change embraced.
 
 ---
-![T shaped and M shaped workers](assets/t_and_m.png)
+![T shaped and M shaped workers](../assets/t_and_m.png)
 
 ---
 
@@ -107,7 +107,7 @@ An agentic organization is one in which human workers and AI agents (virtual and
 
 - Problems: Classic Clothes vs Innovate Inc.
 ---
-![The Dawn of a New Era](assets/The%20Dawn%20of%20a%20New%20Era.png)
+![The Dawn of a New Era](../assets/The%20Dawn%20of%20a%20New%20Era.png)
 
 ---
 - You are coming in `consulting field`, not in software development field. Identify problems of organization and solve it using AI.
@@ -143,7 +143,7 @@ So, how does AI help to create an agentic organization? The `McKinsey article` s
 #### **[Chapter 4: Your Path to an Agentic Future](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/blob/main/01_agentic_org/agentic_org_guide.md#chapter-4-your-path-to-an-agentic-future)**
 
 ---
-![Path to Agentic Future](assets/path_agentic_future.png)
+![Path to Agentic Future](../assets/path_agentic_future.png)
 
 ---
 
@@ -199,11 +199,11 @@ Within an agentic organisation (sometimes called the â€œagentic operating modelâ
 ### **[Navigating the Crossroads of AI and Human Readiness in IT](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/02_ai_and_human_readiness#navigating-the-crossroads-of-ai-and-human-readiness-in-it)**
 ---
 **Industries thatâ€™ll likely be Replaced by AI First**
-![Industries](assets/industries.jpg)
+![Industries](../assets/industries.jpg)
 
 ---
 **Positioning System**
-![Positioning System](assets/you-are-here-gartner-positioning-system.png)
+![Positioning System](../assets/you-are-here-gartner-positioning-system.png)
 
 ---
 ### **Pre-Setup Guide**
@@ -219,7 +219,7 @@ Within an agentic organisation (sometimes called the â€œagentic operating modelâ
 
 #### **[Part 2: The AgentKit Stack (15 minutes)](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/tree/main/04_no_code_agents#part-2-the-agentkit-stack-15-minutes)**
 
-![Agent Core Component](assets/agentkit-core-components.png)
+![Agent Core Component](../assets/agentkit-core-components.png)
 
 ## **âœ… Session 04: Build your First Agent (Cont.) (23/10/2025)**
 
@@ -234,7 +234,7 @@ Within an agentic organisation (sometimes called the â€œagentic operating modelâ
 
 * Start working and understand `AgentKit`.
 ---
-![Hands on Agent Builder](assets/Sess04_1.png)
+![Hands on Agent Builder](../assets/Sess04_1.png)
 
 ---
 
@@ -258,7 +258,7 @@ Within an agentic organisation (sometimes called the â€œagentic operating modelâ
 
 ---
 
-![Assignments Grading and Feedback Agentic System](assets/Sess04_2.png "Assignments Grading and Feedback Agentic System")
+![Assignments Grading and Feedback Agentic System](../assets/Sess04_2.png "Assignments Grading and Feedback Agentic System")
 
 ---
 
@@ -293,7 +293,7 @@ Repo Link [05-Knowledge-Connections](https://github.com/panaversity/learn-agenti
 * **Chunk Overlap:**
     - Adding an overlap of tokens between consecutive chunks can increase the chances of the model contextualizing the information it retrieves properly. This can be any non-negative number but must be lesser than or equal to half of what the defined chunk size is. Default: 400 tokens.
 ---
-![Chunks](assets/Chunks.png "Chunks")
+![Chunks](../assets/Chunks.png "Chunks")
 
 ---
 
@@ -366,7 +366,7 @@ Create a customer support agent that can search through FAQ documents and answer
 4. Save your agent
 
 ---
-![Agent with File Search](assets/Result%20from%20File%20saved%20in%20vector%20DB.png "Result from File saved in vector DB")
+![Agent with File Search](../assets/Result%20from%20File%20saved%20in%20vector%20DB.png "Result from File saved in vector DB")
 
 ---
 ##### Step 5: Add PII Protection
@@ -377,19 +377,19 @@ Create a customer support agent that can search through FAQ documents and answer
 4. Configure the guardrail to block or mask sensitive data
 
 ---
-![Guardrail Menu/Options](assets/Guardrail%20menu-options.png "Guardrail Menu/Options")
+![Guardrail Menu/Options](../assets/Guardrail%20menu-options.png "Guardrail Menu/Options")
 
 ---
 - **For PII Masking, go to setting and check and uncheck box in order to hide and show details respectively**
 
 ---
-![PPI Guardrail Masking](assets/PII%20Guardrail.png "PPI Guardrail Masking")
+![PPI Guardrail Masking](../assets/PII%20Guardrail.png "PPI Guardrail Masking")
 
 ---
 
 - **Guardrail workflow with agent**
 ---
-![Guardrail workflow with agent](assets/Guardrail%20workflow%20with%20agent.png "Guardrail workflow with agent")
+![Guardrail workflow with agent](../assets/Guardrail%20workflow%20with%20agent.png "Guardrail workflow with agent")
 
 ---
 
@@ -399,7 +399,7 @@ Create a customer support agent that can search through FAQ documents and answer
 - We learned how to connect google drive with Agent Builder.
 
 ---
-![Connectors](assets/Sess05_Workshop2_Connector.png "Connectors")
+![Connectors](../assets/Sess05_Workshop2_Connector.png "Connectors")
 
 ---
 
@@ -417,7 +417,7 @@ Create a customer support agent that can search through FAQ documents and answer
 * I have added context7 API key in `.env` file for personal use
 
 ---
-![Context7 Connectivity with AgentKit](assets/contact7.png "Context7 Connectivity with AgentKit")
+![Context7 Connectivity with AgentKit](../assets/contact7.png "Context7 Connectivity with AgentKit")
 
 ---
 * Check session 6 file for agent kit file for more detail
@@ -427,12 +427,11 @@ Create a customer support agent that can search through FAQ documents and answer
 An MCP node enables the agent to fetch, interpret, and integrate live or contextual data (like documentation, APIs, databases, or knowledge bases) directly into its reasoning chain.
 * Instead of adding MCP as a tool in agent, we can apply MCP node to do the same job.
 ---
-![MCP Node with Output](assets/contact7_Workshop4_1.png "MCP Node with Output")
+![MCP Node with Output](../assets/contact7_Workshop4_1.png "MCP Node with Output")
 
 ---
-![MCP Node with Comment](assets/contact7_Workshop4_2.png "MCP Node with Comment")
+![MCP Node with Comment](../assets/contact7_Workshop4_2.png "MCP Node with Comment")
 
 ---
 
-## **âœ… Session 07: Implement Agentic Design Patterns with OpenAI AgentKit Agent Builder | AI-100 (05/11/2025)**
 
