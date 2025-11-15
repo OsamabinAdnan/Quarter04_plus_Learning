@@ -60,3 +60,9 @@ Planning is when one agent creates a strategic plan by breaking down a complex t
 
 Example Use Case: **Research Report Generator**
 
+---
+
+![Planning Pattern](../assets/Ses07_PlanningPattern.png)
+
+---
+
