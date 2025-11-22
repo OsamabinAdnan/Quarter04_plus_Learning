@@ -1,0 +1,8 @@
+{
+  "ui": {
+    "theme": "Ayu"
+  },
+  "context": {
+    "fileName": ["plan.md", "GEMINI.md"]
+  }
+}
