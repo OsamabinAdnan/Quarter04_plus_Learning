@@ -80,6 +80,10 @@ Multi-Agent systems use multiple specialized agents working together. Each agent
 Example Use Case: **[Task Planning Assistant](https://github.com/panaversity/learn-agentic-ai-from-low-code-to-code/blob/main/06_agentic_design_patterns/04_multi_agent_pattern/readme.md)**
 
 ---
+![Multi Agent Pattern](../assets/Ses07_MultiAgent_Pattern.png "Multi Agent Pattern")
+
+---
+
 
 ## Agentic Pattern Reference Guide  
 
