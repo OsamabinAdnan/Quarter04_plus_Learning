@@ -85,9 +85,9 @@ claude mcp add --transport http paypal --scope project https://mcp.paypal.com/mc
 - MCP servers are added on global level which means servers will be available to the user spanning all the different project
 
 ```
-# Add a project-scoped server
+# Add a user-scoped server
 # Instead of scope, we can write simply `s`
-claude mcp add --transport http paypal --scope project https://mcp.paypal.com/mcp
+claude mcp add --transport http paypal --scope user https://mcp.paypal.com/mcp
 ```
 
 ### Remove MCP Servers
