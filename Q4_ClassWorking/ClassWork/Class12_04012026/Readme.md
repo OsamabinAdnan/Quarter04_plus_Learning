@@ -1,5 +1,29 @@
 # Class 12: Sir Ameen Lecture on Docker (Sunday 6-9 PM 4th January 2026)
 
+## Table of Contents
+- [Introduction](#introduction)
+- [Bounded Context or Context Boundary](#bounded-context-or-context-boundary)
+- [Architecture of Application](#architecture-of-application)
+  - [Monolithic Architecture](#monolithic-architecture)
+    - [Challenges](#challenges)
+    - [Modular Monolithic Architecture](#modular-monolithic-architecture)
+  - [Microservices Architecture](#microservices-architecture)
+    - [1. Orchestrator](#1-orchestrator)
+    - [2. Event Broker (Architecture is Microservices)](#2-event-broker-architecture-is-microservices-also-called-choreography)
+      - [Transaction](#transaction)
+- [Layers](#layers)
+  - [Cloud](#cloude)
+  - [Scalability](#scalability)
+    - [Fault Tolerance](#fault-tolerance)
+    - [Auto Scaling (with Image Building)](#auto-scaling-with-image-building)
+    - [Replication (with Auto Scaling)](#replication-with-auto-scaling)
+    - [Docker](#docker)
+    - [Resilience](#resilience)
+      - [Circuit Breaker](#circuit-breaker)
+- [Words and Glossaries to Remember](#words-and-glossaries-to-remember)
+
+## Introduction
+
 For `good product` planning is important and for good planning, **`good architecture`** is important. Architecture will be strong when you know the answers of questions related to achitecture.
 
 Suppose we have to make Ecommerce application:
@@ -178,7 +202,7 @@ Doesn't matter, which architecture you are making it's not philosophy or rule wr
 
 ## Layers
 
-### Cloude
+### Cloud
 - We have following layer to run application on Cloud:
 
 ![Cloude Layer](assets/Cloud%20Layer.png "Cloude Layer")
