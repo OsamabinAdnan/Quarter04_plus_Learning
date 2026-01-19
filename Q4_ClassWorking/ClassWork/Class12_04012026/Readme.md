@@ -78,6 +78,7 @@ Challenges of monolithic architecture approach are:
 ### Microservices Architecture
 
 #### 1. Orchestrator
+
 - In microservices architecture, business boundaries—or bounded contexts—are loosely coupled, meaning they are less interconnected and dependent on one another.
 - In microservices architecture, we make separate projects, `Add to cart, Checkout and Shipment`, all having seperate databases, *because as per my business requirements, when your business tier comes into play you should have database to store your data and then get from there*.
 - There is `rule of microservice`, if you made seperate service then database of that service should be separate.
@@ -109,6 +110,7 @@ Challenges of monolithic architecture approach are:
 - **But what if the Orchestrator is down?** Then whole application will be down. This is `single point of failure`. We are dependent on it, this is the major flaw of microservices architecture.
 
 #### 2. Event Broker (Architecture is Microservices) also called Choreography
+
 > In `application architecture`, an **Event Broker** is a core component of `event-driven architecture (EDA)`. It acts as an **intermediary that receives, routes, filters, and delivers events** from producers to consumers in a **decoupled, asynchronous** manner.
 
 - Event Broker opens topic of events
