@@ -1,5 +1,56 @@
 # Class 14: Docker (cont.) 18th Jan 2026
 
+## Table of Contents
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Docker Compose](#docker-compose)
+- [Docker Networks](#docker-networks)
+- [.dockerignore File](#dockerignore-file)
+- [Environment Variables](#environment-variables)
+- [Docker Volumes](#docker-volumes)
+- [How Docker Engine Works](#how-docker-engine-works)
+
+## Overview
+This project contains educational materials for a Docker class held on January 18th, 2026. The focus is on Docker Compose and advanced Docker concepts, including multi-container applications, networking, volumes, and Docker engine internals.
+
+## Prerequisites
+Before working with these examples, ensure you have:
+- Docker installed (version 20.10 or higher)
+- Docker Compose installed (version 2.0 or higher)
+- Basic understanding of containerization concepts
+- Terminal/command line proficiency
+
+## Project Structure
+```
+├── README.md                     # Current file
+├── docker-compose.yaml          # Multi-container application configuration
+├── .dockerignore               # Files to exclude from Docker builds
+├── fastapi-docker/             # FastAPI application directory
+│   ├── Dockerfile              # Dockerfile for FastAPI app
+│   └── ...                     # Application code
+├── nextjs-docker/              # Next.js application directory
+│   ├── Dockerfile              # Dockerfile for Next.js app
+│   └── ...                     # Application code
+└── assets/                     # Images and diagrams for documentation
+```
+
+## Quick Start
+1. Clone or download this repository
+2. Navigate to the project directory
+3. Run the multi-container application:
+   ```bash
+   docker-compose up -d
+   ```
+4. Access the applications:
+   - FastAPI: http://localhost:8000
+   - Next.js: http://localhost:3000
+5. Stop the application:
+   ```bash
+   docker-compose down
+   ```
+
 ## Docker Compose
 **Docker Compose** is a tool (built by the Docker team) that makes it much easier to work with applications that need **multiple Docker containers** to run together.
 
