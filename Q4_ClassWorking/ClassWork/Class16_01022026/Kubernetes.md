@@ -2,6 +2,53 @@
 
 ![k8s](assets/k8s.svg)
 
+## Table of Contents
+- [Planet scale](#planet-scale)
+- [Never outgrow](#never-outgrow)
+- [Run K8s anywhere](#run-k8s-anywhere)
+- [Brief history of Kubernetes](#brief-history-of-kubernetes)
+  - [1. Internal Origins at Google (2003–2013)](#1-internal-origins-at-google-20032013)
+  - [2. The Birth of "Project Seven" (2014)](#2-the-birth-of-project-seven-2014)
+  - [3. Stability and Open Governance (2015)](#3-stability-and-open-governance-2015)
+  - [4. The "Orchestrator Wars" & Dominance (2016–2018)](#4-the-orchestrator-wars--dominance-20162018)
+  - [5. Modern Era (2020–Present)](#5-modern-era-2020present)
+- [Where things get tricky...](#where-things-get-tricky)
+  - [This is where Kubernetes comes to the rescue! 🚀](#this-is-where-kubernetes-comes-to-the-rescue-)
+  - [Then Came Containers 🚢](#then-came-containers-)
+- [The Problem Kubernetes Solves 🧠](#the-problem-kubernetes-solves-)
+  - [The Growing Headache of Managing Containers 💡](#the-growing-headache-of-managing-containers-)
+  - [Cloud-Managed Services Helped... But Only Up To a Point 🧑‍💻](#cloud-managed-services-helped-but-only-up-to-a-point-)
+  - [Kubernetes: Smarter, Leaner, and More Flexible 💪](#kubernetes-smarter-leaner-and-more-flexible-)
+  - [Kubernetes Lets You Customize Everything](#kubernetes-lets-you-customize-everything)
+- [Kubernetes Components](#kubernetes-components)
+  - [Control Plane Components](#control-plane-components)
+  - [Worker / Node Components](#worker--node-components)
+  - [Common Add-ons / Core Extensions](#common-add-ons--core-extensions)
+  - [How They Connect Together](#how-they-connect-together)
+- [MiniKube](#minikube)
+- [Kubectl](#kubectl)
+  - [Key Features and Usage](#key-features-and-usage)
+  - [Common Commands](#common-commands)
+- [How Kubernetes Works — Components of a Kubernetes Environment 🧑‍🔧](#how-kubernetes-works--components-of-a-kubernetes-environment-)
+  - [1️⃣ Cluster 🏰](#1️⃣-cluster-)
+  - [2️⃣ Master Node (Control Plane) 👑](#2️⃣-master-node-control-plane-)
+  - [3️⃣ API Server 💌](#3️⃣-api-server-)
+  - [4️⃣ Scheduler 📅](#4️⃣-scheduler-)
+  - [5️⃣ Controller Manager 🎛️](#5️⃣-controller-manager-)
+  - [6️⃣ etcd 📚](#6️⃣-etcd-)
+  - [7️⃣ Worker Nodes 💪](#7️⃣-worker-nodes-)
+  - [8️⃣ Kubelet 📢](#8️⃣-kubelet-)
+  - [9️⃣ Kube Proxy 🚦](#9️⃣-kube-proxy-)
+- [Kubernetes Workloads 🛠️ — Pods, Deployments, Services, & More](#kubernetes-workloads-️--pods-deployments-services--more)
+  - [1️⃣ Pods](#1️⃣-pods)
+  - [2️⃣ Deployments](#2️⃣-deployments)
+  - [3️⃣ Services](#3️⃣-services)
+  - [4️⃣ ReplicaSets](#4️⃣-replicasets)
+  - [5️⃣ DaemonSets](#5️⃣-daemonsets)
+  - [6️⃣ StatefulSets](#6️⃣-statefulsets)
+  - [7️⃣ Jobs](#7️⃣-jobs)
+  - [8️⃣ CronJobs](#8️⃣-cronjobs)
+
 Kubernetes, also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications.
 
 ### Planet scale
@@ -340,3 +387,99 @@ It listens to the Master Node’s instructions. If the Master Node says:_"Hey, r
 Kube Proxy handles network traffic, ensuring that Pods can talk to each other and to the outside world.
 
 Imagine your banking app’s login service needs to talk to the payments service. The Kube Proxy handles the routing so the request reaches the right place. It also handles load balancing, so no single microservice gets overwhelmed.
+
+## Kubernetes Workloads 🛠️ — Pods, Deployments, Services, & More
+
+Kubernetes workloads are the objects you use to manage and run your applications. Think of them as blueprints 📐 that tell Kubernetes **what** to run and **how** to run it – whether it’s a single app container, a group of containers, a database, or a batch job. Here are some of the workloads in Kubernetes:
+
+### 1️⃣ **Pods**
+
+A **Pod** is the smallest and simplest unit in the Kubernetes object model. It represents a single instance of a running process in your cluster and can contain one or more containers that share storage and network resources. ​
+
+Think of a Pod as a wrapper around one or more containers that need to work together. They share the same network IP and storage, allowing them to communicate easily and share data. Pods are ephemeral (live for a short time, they can be replaced very easily). If a Pod dies, Kubernetes can create a new one to replace it almost instantly.​
+
+Say you have an application which is split into 2 distributed monoliths – a frontend and a backend. The frontend will run in a container in Pod A, while the backend app will run in a container in another Pod B.
+
+![POD](assets/pod.webp)
+
+### 2️⃣ **Deployments**
+
+A **Deployment** provides declarative updates for Pods and ReplicaSets. You describe a desired state in a Deployment, and the Deployment Controller changes the actual state to the desired state at a controlled rate.
+
+Deployments manage the lifecycle of your application Pods. They ensure that the specified number of Pods are running and can handle updates, rollbacks, and scaling. If a Pod fails, the Deployment automatically replaces it to maintain the desired state.​
+
+Imagine you're managing a store. A Deployment is like the store manager – you tell it how many workers (Pods) you want, and it makes sure they’re always present. If one doesn't show up for work, the manager finds a replacement automatically. You can also tell it to hire more workers or fire some when needed.
+
+![Deployment](assets/Deployments.png)
+
+### 3️⃣ **Services**
+
+A **Service** in Kubernetes defines a way to access/communicate with Pods. Services enable communication between different Pods (for example, your frontend Pod A can communicate with your backend Pod B via a service) and can expose your application to external traffic (for example the public internet). ​
+
+Services act as a stable endpoint to access a set of Pods. Even if the underlying Pods change, the Service's IP and DNS name remain constant, ensuring communication between the Pods within the cluster or with the internet.
+
+A Service is like the front door to your app. No matter which worker (Pod) is behind it, people always use the same entrance to access it. It hides the messy stuff happening behind the scenes and gives users a simple way to connect to your app.
+
+![Service](assets/service.png)
+
+### 4️⃣ **ReplicaSets**
+
+A **ReplicaSet** ensures that a specified number of identical Pods are running at any given time. It is often used to guarantee the availability of a specified number of Pods (horizontal scaling). ​
+
+ReplicaSets maintain a stable set of running Pods. If a Pod crashes or is deleted, the ReplicaSet automatically creates a new one to replace it, ensuring your application remains available.​
+
+Think of a ReplicaSet like a robot that counts how many copies of your app are running. If one goes missing, it automatically makes a new one. It keeps the number steady, just like you told it to.
+
+![ReplicaSet](assets/replicaset.png)
+
+### 5️⃣ **DaemonSets**
+
+A **DaemonSet** ensures that all (or some) Nodes run an instance (a copy) of a specific Pod. As nodes are added to the cluster, Pods are added to them. As nodes are removed from the cluster, those Pods are also removed. ​
+
+DaemonSets are used to deploy a Pod on every node in the cluster. This is useful for running background tasks like log collection or monitoring agents on all nodes (for example to get the CPU, memory, and disk usage of each node).​
+
+A DaemonSet is like saying, “I want this helper app to run on **every single computer** we have.” As mentioned earlier, it’s great for things like log collectors or security checkers – small helpers that every machine should have.
+
+![DaemonSet](assets/DaemonSets.png)
+
+### 6️⃣ **StatefulSets**
+
+A **StatefulSet** is the workload API object used to manage stateful applications (applications that store data, for example in their filesystem – databases). It manages the deployment and scaling of a set of Pods and provides guarantees about the ordering and uniqueness of these Pods.
+
+StatefulSets are designed for applications that require persistent storage and stable network identities, like databases.
+
+Let’s say you’re running a database or anything that needs to save info. A StatefulSet is like giving each app a name tag and a personal drawer to store their stuff. Even if you restart them, they come back with the same name and same drawer.
+
+---
+
+![StatefulSet1](assets/StatefuleSet1.png)
+
+---
+
+![StatefulSet2](assets/statefulSets-in-kubernetes.webp)
+
+---
+
+### 7️⃣ **Jobs**
+
+A **Job** creates one or more Pods and ensures that a specified number of them successfully terminate. As Pods successfully complete, the Job tracks the successful completions. When a specified number of successful completions is reached, the Job is complete. ​
+
+A Job is like a one-time task. Imagine sending out a batch of emails or processing a report. You want the task to run, finish, and then stop. That’s exactly what a Job does.
+
+---
+
+![Jobs](assets/k8s-jobs.png)
+
+---
+
+### 8️⃣ **CronJobs**
+
+A **CronJob** creates Jobs on a time-based schedule. It runs a Job periodically on a given schedule, written in Cron format.
+
+A CronJob is like setting a reminder or alarm. It tells your app (in this case the Job) to do something every night at 2 AM, every Monday morning, or once a month – whatever schedule you give it.
+
+---
+
+![CronJobs](assets/cronjobs.png)
+
+---
