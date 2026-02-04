@@ -480,6 +480,6 @@ A CronJob is like setting a reminder or alarm. It tells your app (in this case t
 
 ---
 
-![CronJobs](assets/cronjobs.png)
+![CronJobs](assets/CronJobs.png)
 
 ---
