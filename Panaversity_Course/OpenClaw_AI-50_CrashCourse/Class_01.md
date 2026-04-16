@@ -1,6 +1,8 @@
 # Master OpenClaw for Business Professionals (AI-50)
 These classes had been conducted by Panaversity faculty.
 
+Official Book Link: **[Building OpenClaw Apps](https://agentfactory.panaversity.org/docs/Building-OpenClaw-Apps/meet-your-personal-ai-employee)**
+
 ## Class 01:
 
 ### What makes a Personal AI Employee fundamentally different from a chatbot
@@ -197,4 +199,3 @@ The log is your source of truth. Every message received, every tool invoked, eve
 ---
 
 ![Step 05: Explore the Dashboard](assets/Class01-10.png)
-
