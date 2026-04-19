@@ -47,7 +47,7 @@ openclaw tui
 
 ## Checking Gateway Status
 
-### openclaw gatewaystatus
+### openclaw gateway status
 
 **Purpose:** Check the health and status of the OpenClaw Gateway. The Gateway is the core component that coordinates messages, manages sessions, and coordinates plugins.
 
@@ -70,22 +70,121 @@ If everything is working correctly, you'll see a status showing the gateway is h
 
 ## Troubleshooting Gateway Issues
 
+### When Things Go Wrong
+If everything is working and your agent is responding, you can skip this section. Come back here when you hit issues.
+
+Your first-response command should be:
+
+```bash
+openclaw doctor
+```
+
+It checks Node.js version, network connectivity, configuration paths, and service status.
+
+Also verify gateway mode:
+
+```bash
+openclaw config get gateway.mode
+```
+
+If it returns `local`, setup is correct. If empty/error, follow the Crash Loop fix below.
+
+### openclaw logs
+**Purpose:** View raw gateway/runtime logs for deep debugging when the dashboard view is not enough.
+
+**Example:**
+```bash
+openclaw logs
+```
+
+**Live Stream Alternative:**
+```bash
+tail -f ~/.openclaw/logs/gateway.log
+```
+
 ### openclaw doctor --repair
 
-**Purpose:** Automatically diagnose and repair common OpenClaw issues. The doctor command checks for configuration problems, missing dependencies, and fixes them automatically.
+**Purpose:** Automatically diagnose and repair common OpenClaw issues.
 
-**Use Case:** Run this command when:
-- `openclaw gateway status` shows errors or unhealthy status
-- Your AI Employee isn't responding to messages
-- You experience unexpected behavior or crashes
-- After updating OpenClaw and something isn't working
+**Use Case:** Run when:
+- `openclaw gateway status` shows errors
+- Agent is not responding
+- Unexpected crashes happen
+- Something breaks after updates
 
 **Example:**
 ```bash
 openclaw doctor --repair
 ```
 
-**Expected Output:** The command will scan your OpenClaw installation, identify issues, and apply fixes. It may restart the gateway after repairs.
+### The Crash Loop
+**What happens:** Gateway service starts, fails, and keeps restarting when `gateway.mode` is missing.
+
+Typical log error:
+- `Gateway start blocked — gateway.mode not configured`
+
+**Fix:**
+```bash
+openclaw config set gateway.mode local
+openclaw gateway restart
+openclaw channels status --probe
+```
+
+### Crash Loop Escape Hatch (Manual)
+If crash loop does not stop, unload the launch agent (macOS), then set mode and restart fresh:
+
+```bash
+launchctl unload ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+```
+
+### The Auth Cache Gotcha
+OpenClaw may use cached credentials from:
+`~/.openclaw/agents/main/agent/auth-profiles.json`
+instead of fresh environment variables.
+
+If auth fails after key rotation, clear cache:
+
+```bash
+rm ~/.openclaw/agents/main/agent/auth-profiles.json
+```
+
+Then reconfigure provider. Main config `~/.openclaw/openclaw.json` remains untouched.
+
+### Free-Tier Quota Limits
+If model calls fail with quota/rate-limit errors, switch model/provider and retry:
+- Gemini free tiers have per-model daily/request limits
+- OpenRouter free models are more restrictive
+
+Switch model quickly:
+
+```bash
+openclaw configure --section model
+```
+
+### The Activation Dance (Core Pattern)
+Most OpenClaw capabilities follow this 4-step pattern:
+1. Verify bundled plugin exists (`openclaw plugins list`)
+2. It is disabled by default
+3. Enable it via config (`openclaw config set plugins.entries.<id>.enabled true`)
+4. Configure feature-specific settings
+
+Restart gateway after enabling.
+
+---
+
+## Commands Reference (Troubleshooting)
+
+```bash
+openclaw doctor
+openclaw config get gateway.mode
+openclaw logs
+tail -f ~/.openclaw/logs/gateway.log
+openclaw doctor --repair
+openclaw config set gateway.mode local
+openclaw gateway restart
+openclaw channels status --probe
+openclaw configure --section model
+```
 
 ---
 
@@ -96,7 +195,29 @@ openclaw doctor --repair
 | `openclaw --version` | Check installed version | After install, for debugging |
 | `openclaw tui` | Launch terminal UI | Testing agent without external channel |
 | `openclaw gateway status` | Check gateway health | Agent not responding |
+| `openclaw doctor` | Run full diagnostics | First response to any issue |
+| `openclaw config get gateway.mode` | Verify gateway mode | Crash-loop diagnosis |
+| `openclaw logs` | View agent logs | Deep debugging |
+| `tail -f ~/.openclaw/logs/gateway.log` | Stream gateway logs live | Real-time troubleshooting |
+| `openclaw doctor --repair` | Attempt automated repair | When diagnostics find issues |
+| `openclaw config set gateway.mode local` | Fix missing gateway mode | Crash-loop fix |
+| `openclaw gateway restart` | Restart gateway service | After config/plugin changes |
+| `openclaw channels status --probe` | Verify gateway/channel process | Post-fix validation |
+| `openclaw configure --section model` | Switch model/provider | Quota or provider issues |
+
+---
+
+## Connecting Your Channel (WhatsApp)
+
+## Quick Reference
+
+| Command | Purpose | When to Use |
+|---------|---------|-------------|
+| `openclaw --version` | Check installed version | After install, for debugging |
+| `openclaw tui` | Launch terminal UI | Testing agent without external channel |
+| `openclaw gateway status` | Check gateway health | Agent not responding |
 | `openclaw doctor --repair` | Fix issues automatically | When gateway has errors |
+| `openclaw logs` | View agent logs | Deep debugging |
 
 ---
 
@@ -141,13 +262,14 @@ OpenClaw can auto-react with an "👀" emoji the moment it starts processing you
 ## Delegate Real Work to Your AI Employee
 
 ### What You Will Learn
-This section covers how to send real tasks to your agent and understand what happens internally.
+This lesson shows how to send three kinds of tasks to the agent and inspect the dashboard to see what happened internally.
 
-### Key Concept: Knowledge vs Access
+**Main goals:**
+- Trace a request through the **agent loop**
+- See why some requests use tools and others do not
+- Understand **tool profiles**, which control permissions separately from knowledge
 
-A chatbot may remember preferences, but an AI Employee becomes meaningfully different when it can **act** using your system and tools. The key distinction is **access**, not just knowledge.
-
-**Analogy:** A receptionist and an operations manager may know the same things, but the operations manager has the key card. Likewise, the agent becomes useful when it can reach files, tools, and the web.
+Keep the dashboard open at `http://127.0.0.1:18789/` while using WhatsApp.
 
 ---
 
@@ -241,7 +363,7 @@ The Agent Loop is the core process that occurs between sending a request and rec
 
 ---
 
-### Gateway Log (Deep Debugging)
+#### The Gateway Log
 
 For raw event data, check the gateway log:
 
@@ -254,7 +376,7 @@ tail -f ~/.openclaw/logs/gateway.log
 
 ---
 
-### Tool Profiles: Controlling Permissions
+### See the Profiles
 
 Tool profiles decide **what tools are permitted** — separate from what the model knows.
 
@@ -265,7 +387,7 @@ openclaw config get tools.profile
 
 Expected result: `coding` (default after install)
 
-#### Available Profiles (Dashboard → Agents → Tools → Quick Presets)
+#### Available Profiles
 
 Quick Presets shown in dashboard: **Minimal, Coding, Messaging, Full, Inherit**.
 
@@ -277,7 +399,7 @@ Quick Presets shown in dashboard: **Minimal, Coding, Messaging, Full, Inherit**.
 | **full** | All tools, unrestricted | Nothing |
 | **inherit** | Inherits parent/default policy | Depends on parent profile |
 
-#### The Boundary
+### The Boundary
 Your agent can list files, search web, or answer from knowledge because of its tool profile. The profile controls what the agent is **allowed** to do, not what it **knows**.
 - An agent may still know how to list files, but without `exec`/file tools it cannot perform the action.
 - This is an intentional security boundary, not a model limitation.
@@ -318,3 +440,54 @@ Expected behavior:
 
 ---
 
+## Agent `Tab` in Dashboard
+
+The **Agents** section is where you manage your AI Employee's workspace, identity, tools, and behavior.
+
+![Agent Tab](assets/Class02-05.png)
+
+### Overview Tab
+
+The **Overview** tab shows your core agent setup, including workspace path, model configuration, and identity-related metadata. In short, it helps you confirm where your agent data is present and which configuration is active.
+
+![Agents Overview](assets/Class02-06.png)
+
+### Files Tab (Workspace Files)
+
+The **Files** tab contains the workspace files that define how your AI Employee operates.
+
+#### AGENTS.md
+
+![Agents Files Tab](assets/Class02-07.png)
+
+You can use the **Preview** option to inspect file contents directly from the dashboard.
+
+For example, the default structure of `AGENTS.md` can be previewed as shown below:
+
+![AGENTS.md Default Structure](assets/Class02-08.png)
+
+We will understand these files one by one in upcoming steps.
+
+**Why It Matters:** Your AI Employee performs its work based on these workspace files. These files drive instructions, behavior, and execution style.
+
+### Tools Tab
+
+The **Tools** tab manages what capabilities your agent has access to.
+
+![Built-in Tools](assets/Class02-09-a.png)
+
+The tab is organized into:
+- **Built-in tools:** Core system tools for tasks like cron jobs, file editing, shell execution (`exec`), web searching, and session management.
+- **Connected tools:** Specialized tools for memory management and other extensions.
+
+![Connected Tools](assets/Class02-09-b.png)
+
+#### Quick Presets
+The **Quick Presets** section allows you to quickly toggle access levels based on your agent's current needs. The available presets include: **Minimal, Coding, Messaging, Full, and Inherit**.
+
+Depending on the preset you select, the enabled actions in the following categories will update automatically:
+*Files, Runtime, Web, Memory, Sessions, UI, Messaging, Automation, Nodes, Agents, Media.*
+
+![Tool Presets & Categories](assets/Class02-09-c.png)
+
+This allows you to customize the agent's capabilities precisely for different tasks or security requirements.
