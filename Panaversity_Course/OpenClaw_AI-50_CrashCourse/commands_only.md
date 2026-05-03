@@ -1,12 +1,13 @@
-# OpenClaw Commands (Class 01 + Class 02 + Class 03)
+# OpenClaw Commands (Class 01 + Class 02 + Class 03 + Class 04)
 
 | Command | Functionality |
 |---|---|
 | `wsl --install -d Ubuntu` | Enables WSL, installs WSL2 kernel, and installs Ubuntu on Windows. |
 | `wsl -d Ubuntu` | Starts Ubuntu distribution in WSL. |
-| `curl -fsSL https://openclaw.ai/install.sh | bash` | Installs OpenClaw (and Node.js if needed) inside Linux/WSL. |
+| `curl -fsSL https://openclaw.ai/install.sh bash` | Installs OpenClaw (and Node.js if needed) inside Linux/WSL. |
 | `openclaw --version` | Shows installed OpenClaw version and verifies installation. |
 | `openclaw onboard --install-daemon` | Starts onboarding wizard and installs gateway daemon/service. |
+| `openclaw onboard` or `openclaw setup --useit` | Starts interactive onboarding wizard. |
 | `openclaw config get agents.defaults.model` | Displays current default model configuration. |
 | `openclaw config set agents.defaults.model.primary "google/gemini-2.5-flash"` | Sets the primary default model. |
 | `openclaw gateway restart` | Restarts the OpenClaw gateway service. |
@@ -37,3 +38,9 @@
 | `sed -i.bak '/Respond only in pirate speak/d' ~/.openclaw/workspace/SOUL.md` | Removes the test pirate-rule line from SOUL.md and keeps a backup. |
 | `cd ~/.openclaw/workspace && git init && git add . && git commit -m "Initial brain"` | Initializes local git backup for workspace files and creates first snapshot commit. |
 | `cp -r ~/.openclaw/workspace/ ~/.openclaw/workspace-backup/` | Creates a full backup copy of the workspace directory. |
+| `ls ~/.openclaw/workspace/memory/` | Lists daily memory log files stored in the workspace memory directory. |
+| `/compact` | Manually triggers compaction; OpenClaw flushes important memory first, then summarizes older turns. |
+| `openclaw skills search booking` | Searches ClawHub for skills related to booking. |
+| `openclaw skills install service-booking` | Installs the `service-booking` skill into the workspace `skills/` directory. |
+| `openclaw skills update --all` | Updates all installed skills to their latest versions. |
+| `openclaw skills list` | Lists installed skills currently available to the gateway. |
