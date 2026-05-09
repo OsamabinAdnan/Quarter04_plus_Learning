@@ -138,7 +138,9 @@ You do not need to switch today. When the builtin engine starts feeling slow or 
 
 ![Compaction and the Silent Memory Flush](/assets/Class04-03.png "Compaction and the Silent Memory Flush")
 
-# [Install Skills & Discover the Ecosystem](https://agentfactory.panaversity.org/docs/Building-OpenClaw-Apps/meet-your-personal-ai-employee/install-skills-discover-ecosystem)
+# Agents Skills
+
+## [Install Skills & Discover the Ecosystem](https://agentfactory.panaversity.org/docs/Building-OpenClaw-Apps/meet-your-personal-ai-employee/install-skills-discover-ecosystem)
 
 ## Three Ways to Extend Your Agent (Inside the Gateway)
 
@@ -149,7 +151,7 @@ Your agent runs inside a gateway started in Lesson 2. Three things can be instal
 - A folder containing a `SKILL.md` file with instructions.
 - Cross-platform standard: works in OpenClaw, Claude Code, and other agent platforms.
 - Think of it as a textbook the agent picks up when the topic comes up.
-- Install skills from ClawHub.
+- Install skills from `ClawHub`.
 
 **2. Native Plugin**
 - A gateway capability written in TypeScript that runs in-process inside the gateway.

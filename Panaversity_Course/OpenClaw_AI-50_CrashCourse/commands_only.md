@@ -1,4 +1,4 @@
-# OpenClaw Commands (Class 01 + Class 02 + Class 03 + Class 04)
+# OpenClaw Commands (Class 01 + Class 02 + Class 03 + Class 04 + Class 05)
 
 | Command | Functionality |
 |---|---|
@@ -44,3 +44,14 @@
 | `openclaw skills install service-booking` | Installs the `service-booking` skill into the workspace `skills/` directory. |
 | `openclaw skills update --all` | Updates all installed skills to their latest versions. |
 | `openclaw skills list` | Lists installed skills currently available to the gateway. |
+| `npx skills add <repo-url>` | Installs an Agent Skill from a repository URL for both Claude Code and OpenClaw. |
+| `ls .claude/skills/` | Lists skills installed for Claude Code in the current project. |
+| `ls skills/` | Lists skills installed for OpenClaw in the current project. |
+| `cat .claude/skills/<name>/SKILL.md` | Displays the SKILL.md file for a Claude Code skill. |
+| `cat skills/<name>/SKILL.md` | Displays the SKILL.md file for an OpenClaw skill. |
+| `rm -rf .claude/skills/<name> skills/<name>` | Removes a skill from both Claude Code and OpenClaw project directories. |
+| `claude` | Starts Claude Code interactive session in the terminal. |
+| `/<skill-name> <input>` | Explicitly invokes a skill in Claude Code/OpenCode with input. |
+| `/skill <name>` | Explicitly invokes a skill in OpenClaw DM. |
+| `npx skills add https://github.com/anthropics/skills --skill skill-creator` | Installs the skill-creator tool for authoring custom skills. |
+| `/skill-creator` | Invokes the skill-creator tool in Claude Code to author a new skill. |
