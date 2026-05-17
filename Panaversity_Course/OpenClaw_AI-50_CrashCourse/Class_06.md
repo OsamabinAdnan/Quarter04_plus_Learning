@@ -82,3 +82,29 @@ This combination means OBIN will respond to anyone who @mentions them in any Wha
 
 ```
 
+I asked about the **dmPolicy** for whatsapp, then claude suggested me to set `dmPolicy` for whatsapp:
+
+```md
+ Your dmPolicy is set to "pairing".
+
+  What this means:
+
+  dmPolicy: "pairing" - Pairing mode (most secure for DMs)
+  - When a stranger sends OBIN a direct message for the first time, OBIN replies with a one-time pairing code
+  - The stranger must share that code with you
+  - You approve it using: openclaw pairing approve whatsapp <code>
+  - After approval, that person can chat with OBIN freely
+  - Your number (92302xxxxxxx) is already in the allowFrom list, so you don't need pairing approval
+
+  Other DM policy options:
+
+  - "allowlist" - Only pre-approved numbers can DM (strictest)
+  - "open" - Anyone can DM without approval (least secure)
+  - "disabled" - All DMs blocked
+
+  Your current setup (pairing) is a good balance between security and usability - you can chat freely, but strangers need your approval first.
+```
+
+## [Scenario 3: Delegate real work and watch the loop (~10 min)](https://agentfactory.panaversity.org/docs/openclaw-with-coding-agents#scenario-3-delegate-real-work-and-watch-the-loop-10-min)
+
+To be continued...
