@@ -1,4 +1,4 @@
-# [OpenClaw with Coding Agents:](https://agentfactory.panaversity.org/docs/openclaw-with-coding-agents)
+# [OpenClaw with General Agents](https://agentfactory.panaversity.org/docs/openclaw-with-general-agents)
 
 OpenClaw is your **Personal AI Employee**: an open-source assistant that runs on your own laptop and replies through messaging apps you already use (WhatsApp, Telegram, Discord, Slack, iMessage, and more).
 

@@ -55,3 +55,7 @@
 | `/skill <name>` | Explicitly invokes a skill in OpenClaw DM. |
 | `npx skills add https://github.com/anthropics/skills --skill skill-creator` | Installs the skill-creator tool for authoring custom skills. |
 | `/skill-creator` | Invokes the skill-creator tool in Claude Code to author a new skill. |
+| `openclaw pairing approve whatsapp <code>` | Approves a pairing request for WhatsApp direct messages (used with dmPolicy: "pairing"). |
+| `openclaw config set channels.whatsapp.groupPolicy "open"` | Sets WhatsApp group policy to "open" (anyone can @mention), "allowlist" (whitelist only), or "disabled" (no groups). |
+| `openclaw config set channels.whatsapp.dmPolicy "pairing"` | Sets WhatsApp DM policy to "pairing" (requires approval), "allowlist" (pre-approved only), "open" (anyone), or "disabled" (no DMs). |
+| `openclaw config set channels.whatsapp.ackReaction.group "always"` | Sets WhatsApp to send full replies in groups (not just reaction emojis). |
