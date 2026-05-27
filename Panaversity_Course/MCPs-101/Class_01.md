@@ -1,4 +1,4 @@
-# Model Context Protocol (MCP) - Class 01
+# Class-01: Model Context Protocol - Introduction and Basic HTTP Theory, JSON-RPC
 
 ## What is MCP?
 
@@ -191,27 +191,44 @@ Apart from REST APIs, the software industry also uses other API styles/protocols
 | **SOAP** | Legacy enterprise systems, banking, and strict compliance | XML | Request-Response (Strict) |
 | **Webhooks** | Event-driven notifications (e.g., payment confirmations) | JSON / XML | One-way Server Push |
 
+### [JSON-RPC 2.0](https://github.com/panaversity/learn-agentic-ai/tree/main/03_ai_protocols/01_mcp/03_json_rpc)
 
+#### What is JSON-RPC?
+- **[JSON-RPC](https://www.jsonrpc.org/specification)** is a lightweight remote procedure call (RPC) protocol that uses **JSON** to call methods between two programs.
+- It standardizes message fields like: `jsonrpc`, `method`, `params`, `id`, `result`, `error`.
 
+#### Message Types
+- **Request**: calls a method (must include an `id` if you expect a response)
+- **Response**: returns either `result` (success) or `error` (failure) for the same `id`
+- **Notification**: like a request but **no `id`**, so **no response** (fire-and-forget)
 
+#### Minimal Examples
 
+**Request**
+```json
+{ "jsonrpc": "2.0", "id": 1, "method": "tools/list", "params": {} }
+```
 
+**Success Response**
+```json
+{ "jsonrpc": "2.0", "id": 1, "result": { "tools": [] } }
+```
 
+**Error Response**
+```json
+{ "jsonrpc": "2.0", "id": 1, "error": { "code": -32601, "message": "Method not found" } }
+```
 
----
+**Notification**
+```json
+{ "jsonrpc": "2.0", "method": "notifications/roots/list_changed" }
+```
 
-## Transport Mechanisms
+#### JSON vs JSON-RPC (difference)
+- **JSON** = data format (just data)
+- **JSON-RPC** = protocol (rules for request/response using JSON)
 
-### 1. **STDIO Transport** (Local Servers)
-- Communication via standard input/output streams
-- Typically used for local, single-client servers
-- Simple and efficient for same-machine communication
+For more detail read **[Examples](https://www.jsonrpc.org/specification)** from official JSON-RPC docs
 
-### 2. **Streamable HTTP Transport** (Remote Servers)
-- Communication over HTTP/HTTPS
-- Supports multiple concurrent clients
-- Enables remote server deployments
-- Better for cloud-based or shared services
-
----
+To read about all protocol, see **[extra](https://github.com/panaversity/learn-agentic-ai/tree/main/03_ai_protocols/01_mcp/extra)** in panversity github repo
 
