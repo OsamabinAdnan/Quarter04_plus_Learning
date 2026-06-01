@@ -29,7 +29,11 @@ This course provides comprehensive coverage of the Model Context Protocol (MCP),
 
 ## Progress Tracker
 
-- [ ] Lesson 01: Introduction to MCP
-- [ ] Lesson 02: Hands-on with MCP Servers
-- [ ] Lesson 03: Connecting with MCP clients
-- [ ] Lesson 04: Assessment and Wrap up
+- [x] Lesson 01: Introduction to MCP
+- [x] Lesson 02: Hands-on with MCP Servers
+- [x] Lesson 03: Connecting with MCP clients
+- [x] Lesson 04: Assessment and Wrap up
+
+## Check Link for Certficate
+
+[Certificate of Completion](https://verify.skilljar.com/c/bvnaoqzquzyr)
