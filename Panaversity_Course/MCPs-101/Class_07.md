@@ -2,9 +2,11 @@
 
 **First Read** [Advanced MCP Course Lessons](https://docs.google.com/document/d/1mvWO9NzzomRea_uJuKHEoiyswGVJTpkuQqjUBGalptE/)
 
+## [01_mcp_transports](https://github.com/panaversity/learn-agentic-ai/tree/main/03_ai_protocols/01_mcp/05_capabilities_and_transport/01_mcp_transports)
+
 ---
 
-## What Is the MCP Transport Layer?
+### What Is the MCP Transport Layer?
 
 The Model Context Protocol defines *what* messages flow between clients and servers. The **transport layer** defines *how* those messages physically move. Two transports dominate: **STDIO** for local work and **Streamable HTTP** for production. Both speak the exact same JSON-RPC dialect — only the channel changes.
 
@@ -14,9 +16,9 @@ That bidirectionality is the core tension. HTTP is natively unidirectional (requ
 
 ---
 
-## 1. Foundational Communication Standards
+### 1. Foundational Communication Standards
 
-### 1.1 JSON and JSON-RPC
+#### 1.1 JSON and JSON-RPC
 
 Every MCP message — regardless of transport — is encoded as JSON and conforms to **JSON-RPC 2.0**. Unlike REST (which scatters logic across many HTTP endpoints), JSON-RPC carries the method name and arguments *inside* the message body, so the same message structure works over any transport.
 
@@ -39,7 +41,7 @@ Every MCP message — regardless of transport — is encoded as JSON and conform
 }
 ```
 
-### 1.2 Two Message Categories
+#### 1.2 Two Message Categories
 
 MCP groups messages into two functional types:
 
@@ -52,7 +54,7 @@ Notifications are how the server "talks back" without a pending request — used
 
 ---
 
-## 2. The MCP Connection Lifecycle: The 3-Way Handshake
+### 2. The MCP Connection Lifecycle: The 3-Way Handshake
 
 Every MCP session, on either transport, must complete a **three-step handshake** before any feature can be used. Skip a step and the server won't accept tool calls.
 
@@ -76,11 +78,11 @@ Client                              Server
 
 ---
 
-## 3. Transport: STDIO
+### 3. Transport: STDIO
 
 STDIO is the **original** MCP transport and remains the standard for local development.
 
-### 3.1 How It Works
+#### 3.1 How It Works
 
 - Both processes live on **the same machine**
 - The client **launches** the server as a subprocess and pipes its `stdin` / `stdout`
@@ -93,14 +95,14 @@ STDIO is the **original** MCP transport and remains the standard for local devel
 └─────────────┘   (pipes)        └─────────────┘
 ```
 
-### 3.2 Strengths
+#### 3.2 Strengths
 
 - **Secure by default** — no network exposure, no auth/TLS/API-gateway work
 - **Fast** — direct memory transfer, near-zero latency
 - **Simple** — no ports, no DNS, no certificates
 - **Bidirectionality comes for free** — both `stdin` and `stdout` are full-duplex streams
 
-### 3.3 Limitation
+#### 3.3 Limitation
 
 - **Local only.** The moment you need cloud hosting, multi-user, or shared infrastructure, STDIO can't follow.
 
@@ -108,17 +110,17 @@ STDIO is the **original** MCP transport and remains the standard for local devel
 
 ---
 
-## 4. Transport: Streamable HTTP (SSE)
+### 4. Transport: Streamable HTTP (SSE)
 
 To bring MCP to the cloud, the protocol sits on **Streamable HTTP** — standard HTTP/1.1 with an open-ended response stream (Server-Sent Events) for server-to-client traffic.
 
-### 4.1 The HTTP Bidirectionality Problem
+#### 4.1 The HTTP Bidirectionality Problem
 
 Plain HTTP is stateless and unidirectional. To fake bidirectional communication, MCP "cheats" using SSE.
 
 > "In HTTP, we used a technique to cheat... we used the HTTP protocol to do the work of WebSockets to introduce bidirectional conversation."
 
-### 4.2 How SSE Works
+#### 4.2 How SSE Works
 
 - The client opens a **long-lived HTTP request**
 - The server **keeps the response open**, sending chunks as they become available instead of closing after the first payload
@@ -138,7 +140,7 @@ Client                                Server
   |<── more chunks ────────────────────── |
 ```
 
-### 4.3 Two Modes: Stateful vs Stateless
+#### 4.3 Two Modes: Stateful vs Stateless
 
 | Aspect | Stateful (default) | Stateless (`stateless_http=True`) |
 |---|---|---|
@@ -159,13 +161,13 @@ mcp = FastMCP("hello_mcp")                        # stateful (default)
 
 ---
 
-## 5. Production Scalability Challenges
+### 5. Production Scalability Challenges
 
-### 5.1 The Session ID Conflict
+#### 5.1 The Session ID Conflict
 
 In a stateful HTTP setup, Server Instance A issues a Session ID. If a load balancer routes the next request to Server Instance B, B has no record of that session and the call fails.
 
-### 5.2 The Workaround
+#### 5.2 The Workaround
 
 Use `stateless_http=True` so any server instance can answer any request. Trade-off accepted: no live streaming, no server-pushed notifications.
 
@@ -176,7 +178,7 @@ Client ─────┼──►  Server B  ──┼──►  MCP API
                   (stateless: any instance can answer)
 ```
 
-### 5.3 Decision Matrix
+#### 5.3 Decision Matrix
 
 | Need | Choose |
 |---|---|
@@ -187,7 +189,7 @@ Client ─────┼──►  Server B  ──┼──►  MCP API
 
 ---
 
-## 6. Transport Comparison
+### 6. Transport Comparison
 
 | Feature | STDIO | Streamable HTTP (Stateful) | Streamable HTTP (Stateless) |
 |---|---|---|---|
@@ -202,9 +204,9 @@ Client ─────┼──►  Server B  ──┼──►  MCP API
 
 ---
 
-## 7. Practical Implications
+### 7. Practical Implications
 
-### 7.1 Why SSE Accept Headers Matter
+#### 7.1 Why SSE Accept Headers Matter
 
 When a client talks to a streamable HTTP server, it must advertise SSE support, otherwise the server rejects the request:
 
@@ -230,13 +232,13 @@ A client that only advertises `application/json` will hit:
 }
 ```
 
-### 7.2 Choosing Between Transports
+#### 7.2 Choosing Between Transports
 
 - **Cursor / Claude Desktop → STDIO** — desktop hosts spawn the server locally
 - **Production SaaS → Stateless HTTP** — scale across many instances, lose streaming
 - **Hybrid → Stateful HTTP** — when you need notifications but can pin to one instance
 
-### 7.3 Code Configuration (FastMCP)
+#### 7.3 Code Configuration (FastMCP)
 
 ```python
 from mcp.server.fastmcp import FastMCP
@@ -253,7 +255,7 @@ mcp_app = mcp.streamable_http_app()
 
 ---
 
-## 8. Key Takeaways
+### 8. Key Takeaways
 
 1. **JSON-RPC is transport-agnostic** — same message structure on STDIO, HTTP, or anything else
 2. **The 3-way handshake is mandatory** — without it, no tools, resources, or prompts work
