@@ -35,6 +35,9 @@ We use **NVM (Node Version Manager)** because it allows easy switching between N
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# For better version
+curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 ```
 
 ### Step 2.2: Reload Terminal
@@ -55,18 +58,28 @@ nvm --version
 
 ```bash
 nvm install 20
+
+# For Latest LTS version 24.18.0
+nvm install 24.18.0
+
 ```
 
 ### Step 3.2: Use Node.js v20
 
 ```bash
 nvm use 20
+
+# Use it
+nvm use 24.18.0
 ```
 
 ### Step 3.3: Set Node.js 20 as Default
 
 ```bash
 nvm alias default 20
+
+# Set as default 24.18.0
+nvm install 24.18.0
 ```
 
 ### Step 3.4: Verify Node & npm
